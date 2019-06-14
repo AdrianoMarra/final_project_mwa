@@ -1,0 +1,191 @@
+
+# POST http://localhost:3000/locations/ HTTP/1.1
+# content-type: application/json
+
+# [
+#    {
+#       "name":"Argiro",
+#       "category":"Restaurant",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.967279,
+#             41.017782
+#          ]
+#       }
+#    },
+#    {
+#       "name":"Recreation center",
+#       "category":"Recreation",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9649649,
+#             41.0169169
+#          ]
+#       }
+#    },
+#    {
+#       "name":"McLaughlin",
+#       "category":"Academic Bdg",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9682469,
+#             41.017029
+#          ]
+#       }
+#    },
+#    {
+#       "name":"Library",
+#       "category":"Academic Bdg",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9687689,
+#             41.017654
+#          ]
+#       }
+#    },
+#    {
+#       "name":"Verrill Hall",
+#       "category":"Academic Bdg",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9701546,
+#             41.016454
+#          ]
+#       }
+#    },
+#    {
+#       "name":"My Dorm",
+#       "category":"Dorm",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9679483,
+#             41.022391
+#          ]
+#       }
+#    },
+#    {
+#       "name":"Swimming pool",
+#       "category":"Recreation",
+#       "location":{
+#          "type":"Point",
+#          "coordinates":[
+#             -91.9696223,
+#             41.0236518
+#          ]
+#       }
+#    }
+# ]
+
+# POST http://localhost:3000/restaurants/ HTTP/1.1
+# content-type: application/json
+
+# {
+# 	"address": {
+# 		"building": "7114",
+# 		"coord": [-73.9068506, 40.6199034],
+# 		"street": "Avenue U",
+# 		"zipcode": "11234"
+# 	},
+# 	"district": "Brooklyn",
+# 	"cuisine": "Italian",
+# 	"grades": [{
+# 		"date": "2014-05-29T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 10
+# 	}, {
+# 		"date": "2014-01-14T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 10
+# 	}, {
+# 		"date": "2013-08-03T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 8
+# 	}, {
+# 		"date": "2012-07-18T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 10
+# 	}, {
+# 		"date": "2012-03-09T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 13
+# 	}, {
+# 		"date": "2011-10-14T00:00:00.000Z",
+# 		"grade": "A",
+# 		"score": 9
+# 	},{
+#    "date": "2019-06-06T00:00:00.000Z",
+#    "grade": "A+",
+#    "score": 100,
+#    "recipes": [
+#       {"name": "Recipe number one",
+#        "cheff": "Jhon"
+#       },
+#       {"name": "Recipe number two",
+#        "cheff": "Peter"
+#        }
+#       ]
+#    }],
+# 	"name": "Marcu's Food",
+# 	"restaurant_id": "1"
+# }
+
+# 
+# CRUD FOR RICH DOCUMENTS LEVEL 01
+# 
+
+PUT http://localhost:3000/restaurants/1/grades HTTP/1.1
+content-type: application/json
+
+{
+   "date": "2019-06-06T00:00:00.000Z",
+   "grade": "A+",
+   "score": 100,
+   "recipes": [
+      {"name": "Recipe number one",
+       "cheff": "Jhon"
+      },
+      {"name": "Recipe number two",
+       "cheff": "Peter"
+       },
+       {"name": "Recipe number three",
+        "cheff": "Marcus"
+       }
+   ]
+}
+
+# PATCH http://localhost:3000/restaurants/0/grades/10 HTTP/1.1
+# content-type: application/json
+
+# {
+#    "grade": "A-"
+# }
+
+# DELETE http://localhost:3000/restaurants/0/grades/100 HTTP/1.1
+
+# 
+# CRUD FOR RICH DOCUMENTS LEVEL 02
+# 
+
+PUT http://localhost:3000/restaurants/0/grades/100/recipes HTTP/1.1
+content-type: application/json
+
+{
+   "name": "Recipe number five",
+   "cheff": "Joao pedro"
+}
+
+# PATCH http://localhost:3000/restaurants/grades/100/recipes/Marcus HTTP/1.1
+# content-type: application/json
+
+# {
+#    "name": "Recipe number four",
+#    "cheff": "Marcus"
+# }
+
+DELETE http://localhost:3000/restaurants/grades/recipes/Peter HTTP/1.1
