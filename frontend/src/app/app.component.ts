@@ -1,28 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GetDataService } from './services/getdata.service';
-import { Subscription } from 'rxjs';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `
-    <h1>App Component</h1>
-    <a [routerLink]="['/']">Restaurants</a> |
-    <a [routerLink]="['users']">Users</a>
+    <h1>Find the right worker app.</h1>
+    <a [routerLink]="['/']">Home page</a> |
+    <a [routerLink]="['user', 'register']">Register</a> |
+    <a [routerLink]="['user', 'login']">Login</a>
     <router-outlet></router-outlet>
   `,
 })
-export class AppComponent implements OnDestroy {
-
-    private subscription: Subscription;
-
-    constructor(private getDataService: GetDataService) {
-      // this.subscription = getDataService.getOnlineData().subscribe(resp => {
-        // localStorage.onlineData = JSON.stringify(resp);
-      // });
-    }
-
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
-  }
+export class AppComponent {
 }

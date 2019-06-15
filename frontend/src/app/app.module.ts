@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
-
-import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './components/home.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'users', loadChildren: () => import('./lazy/users.module').then(m => m.UsersModule)}
+      { path: 'user', loadChildren: () => import('./modules/users.module').then(m => m.UsersModule)},
     ]),
     HttpClientModule
   ],

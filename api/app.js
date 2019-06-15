@@ -7,8 +7,7 @@ var path = require('path');
 var cors = require('cors');
 require('dotenv').config();
 
-var locationsRouter = require('./routes/locations');
-var restaurantsRouter = require('./routes/restaurants');
+var usersRouter = require('./controllers/users');
 
 // 2) Initialization 
 var app = express();
@@ -29,7 +28,7 @@ app.use(async function (req, resp, next) {
   try {
     if (!db) {
       let client = await MongoClient.connect(process.env.MONGO_ATLAS, { useNewUrlParser: true });
-      db = client.db("homework08");
+      db = client.db("final_project");
       req.db = db;
     } else {
       req.db = db;
@@ -41,9 +40,7 @@ app.use(async function (req, resp, next) {
 });
 
 // 5) Routing
-app.use('/locations', locationsRouter);
-app.use('/restaurants', restaurantsRouter);
-
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
