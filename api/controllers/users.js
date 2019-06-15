@@ -1,13 +1,16 @@
-var express = require('express');
-var router = express.Router();
 var Users = require('../models/users')
 
-/* GET list of all users. */
-router.get('/', async function (req, res) {
+class UsersController {
 
-  let response = await Users.getAll(req);
-  res.json(response);
+    async findAll(req, res) {
+        let response = await Users.getAll(req);
+        res.json(response);
+    }
 
-});
+    async find(req, res) {
+        let response = await Users.get(req);
+        res.json(response);
+    }
+}
 
-module.exports = router;
+module.exports = new UsersController();
