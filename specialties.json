@@ -18,4 +18,9 @@
 	"id": 5,
 	"name": "Lawyer",
 	"description": "They counsel clients, perform legal research, prepare legal documents and represent clients in criminal and civil court proceedings"
+},
+{
+	"id": 6,
+	"name": "Exlecterical Work",
+	"description": "They counsel clients, perform legal research, prepare legal documents and represent clients in criminal and civil court proceedings"
 }]
