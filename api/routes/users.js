@@ -8,5 +8,8 @@ router.get('/', (req, res) => UsersController.findAll(req, res));
 /* GET one user. */
 router.get('/:id', (req, res) => UsersController.find(req, res));
 
+/* POST new user. */
+router.post('/', (req, res) => UsersController.createNew(req, res));
+
 
 module.exports = router;
