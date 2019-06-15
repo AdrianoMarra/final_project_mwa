@@ -5,17 +5,17 @@ class Users {
         let min = 0;
         let max = 1000;
         let findQuery = {};
-        if(req.params.specialty != null) {
-            findQuery['specialty.name'] = {$regex: "/^" + req.params.specialty + "/"};
+        if(req.body.specialty != null) {
+            findQuery['specialty.name'] = {$regex: "/^" + req.body.specialty + "/"};
         } 
-        if(req.params.experience != null) {
-            findQuery['experience'] = req.params.experience;
+        if(req.body.experience != null) {
+            findQuery['experience'] = req.body.experience;
         }
-        if(req.params.hour_rate_max != null) {
-            max = req.params.hour_rate_max;
+        if(req.body.hour_rate_max != null) {
+            max = req.body.hour_rate_max;
         }
-        if(req.params.hour_rate_min != null) {
-            min = req.params.hour_rate_min;
+        if(req.body.hour_rate_min != null) {
+            min = req.body.hour_rate_min;
         }
         findQuery['hour_rate'] = {$gte: min, $lte: max};
 
