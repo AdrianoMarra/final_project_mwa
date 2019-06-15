@@ -7,7 +7,7 @@ var path = require('path');
 var cors = require('cors');
 require('dotenv').config();
 
-var usersRouter = require('./controllers/users');
+var usersRouter = require('./routes/users');
 
 // 2) Initialization 
 var app = express();
