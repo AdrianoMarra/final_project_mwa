@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
     <p> Search home page component: </p>
   `,
 })
-
 export class HomeComponent {
 }
