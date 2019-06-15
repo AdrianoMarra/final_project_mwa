@@ -1,4 +1,4 @@
-# Api for the final project
+# API for the final project
 
 ### 1. create a .env file inside /api 
 ### 2. add the credentials to connect to the database
