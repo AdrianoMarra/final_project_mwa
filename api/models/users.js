@@ -25,6 +25,7 @@ class Users {
     }
 
     async getNextSequenceValue(collection) {
+        
         let sequenceDocument = await collection.findOneAndUpdate(
            {"_id": 'userid' },
            { $inc: { "sequence_value": 1 } }
