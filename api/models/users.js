@@ -5,21 +5,21 @@ class Users {
         let min = 0;
         let max = 1000;
         let findQuery = {};
-        if(req.body.specialty != null) {
-            findQuery['specialty.name'] = {$regex: "/^" + req.body.specialty + "/"};
+        if(req.query.specialty != null) {
+            findQuery['specialty.name'] = {$text: {$search : req.query.specialty}};
         } 
-        if(req.body.experience != null) {
-            findQuery['experience'] = req.body.experience;
+        if(req.query.experience != null) {
+            findQuery['experience'] = req.query.experience;
         }
-        if(req.body.hour_rate_max != null) {
-            max = req.body.hour_rate_max;
+        if(req.query.hour_rate_max != null) {
+            max = req.query.hour_rate_max;
         }
-        if(req.body.hour_rate_min != null) {
-            min = req.body.hour_rate_min;
+        if(req.query.hour_rate_min != null) {
+            min = req.query.hour_rate_min;
         }
         findQuery['hour_rate'] = {$gte: min, $lte: max};
 
-        console.log('query: ' + findQuery);
+        console.log('query: ' + findQuery.hour_rate);
 
         let results = await req.db.collection('users')
         .find(findQuery)
@@ -61,7 +61,7 @@ class Users {
 
     async create(req) {
 
-        req.body._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
+        req.query._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
         let results = await req.db.collection('users')
         .insert(req.body);
 
