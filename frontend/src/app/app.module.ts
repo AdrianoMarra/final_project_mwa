@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home.component';
 import { MenuComponent } from './components/menu.component';
 import { SearchComponent } from './components/search.component';
 import { ResultsComponent } from './components/results.component';
+import { SelectComponent } from './components/select.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ResultsComponent } from './components/results.component';
     HomeComponent,
     MenuComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
