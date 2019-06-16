@@ -61,7 +61,7 @@ class Users {
 
     async create(req) {
 
-        req.query._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
+        req.body._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
         let results = await req.db.collection('users')
         .insert(req.body);
 
