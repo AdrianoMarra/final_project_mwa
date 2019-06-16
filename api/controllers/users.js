@@ -16,6 +16,16 @@ class UsersController {
         let response = await Users.create(req);
         res.json(response);
     }
+
+    async deleteUser(req, res) {
+      let response = await Users.detele(req);
+      res.json(response);
+    }
+
+    async updateUser(req, res) {
+      let response = await Users.update(req);
+      res.json(response);
+    }
 }
 
 module.exports = new UsersController();
