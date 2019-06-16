@@ -10,7 +10,7 @@ import { MenuComponent } from './components/menu.component';
 import { SearchComponent } from './components/search.component';
 import { ResultsComponent } from './components/results.component';
 import { CardComponent } from './components/card.component';
-
+import { SelectComponent } from './components/select.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { CardComponent } from './components/card.component';
     MenuComponent,
     SearchComponent,
     ResultsComponent,
-    CardComponent
+    CardComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
