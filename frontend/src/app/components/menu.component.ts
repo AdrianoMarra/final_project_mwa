@@ -17,6 +17,10 @@ import { Component } from '@angular/core';
         border-radius: 5px;">Become a worker!</a>
       </li>
       <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['user', 'specialty']" style="border: white solid 1px;
+        border-radius: 5px;">Add a specialty</a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" [routerLink]="['user', 'login']">Login</a>
       </li>
     </ul>
@@ -24,6 +28,9 @@ import { Component } from '@angular/core';
 </nav>
 
   `,
+  styles: [`.nav-link {
+      margin-left: 10px;
+  }`],
 })
 export class MenuComponent {
 }
