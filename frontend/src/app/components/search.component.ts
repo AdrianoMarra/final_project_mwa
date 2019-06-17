@@ -24,7 +24,7 @@ template: `
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" placeholder="Location">
+                    <input type="text" class="form-control" id="location" placeholder="Location" [value]= this.location.results[0].formatted_address disabled>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="validationCustom02">Worker specialty</label>
@@ -63,6 +63,7 @@ template: `
 `,
 })
 export class SearchComponent implements OnInit {
+    @Output() resultsChange = new EventEmitter();
     private specialtiesOptions = [ 'Frontend developer', 'Backend developer', 'Tutor'];
     private priceOptions = ['10.00', '15.00', '20.00', '50.00', '60.00'];
     private experienceOptions = ['Junior (< 1 year)', 'Intermediate (> 2 years)', 'Senior (> 5 years)', 'Ninja (> 10 years)'];
@@ -72,30 +73,56 @@ export class SearchComponent implements OnInit {
     private specialtiesText = 'Select the specialty';
     private experienceLevelText = 'Worker level of experience';
     myForm: FormGroup;
-    // apiResponse: any;
     isSearching: boolean;
     queryObj = {
-                'specialty': '',
-                'hour_rate_min': '',
-                'hour_rate_max': ''
+                specialty: '',
+                hour_rate_min: '',
+                hour_rate_max: '',
+                latitude: '',
+                longitude: ''
             };
 
-    @Output() resultsChange = new EventEmitter();
-
+    location: any;
 
     constructor(private getDataService: GetUsersService, private fb: FormBuilder, private myElement: ElementRef) {
        this.myForm = fb.group({
         'description': [''],
-        'location': [''],
         'name': ['']
       });
 
        this.isSearching = false;
+
+       this.location = { results: [
+            { formatted_address: 'Finding your location...' }
+        ] };
     }
 
     ngOnInit() {
+        // Uncomment this line to enable the search by location
+        // this.getMyCoordenates();
         this.onKeyUpEvent();
         this.updateSearch();
+      }
+
+      getMyCoordenates() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const location = {
+                lat: position.coords.latitude,
+                long: position.coords.longitude
+            };
+
+            this.getDataService.getAddresses(location)
+                .subscribe((resp) => {
+                    this.location = resp;
+                    this.queryObj.latitude = this.location.results[0].geometry.location.lat;
+                    this.queryObj.longitude = this.location.results[0].geometry.location.lng;
+                    this.updateSearch();
+                });
+          });
+        } else {
+          alert('Geolocation is not supported by this browser.');
+        }
       }
 
     onKeyUpEvent() {
@@ -105,9 +132,9 @@ export class SearchComponent implements OnInit {
               return event.target.value;
             })
             // Time in milliseconds between key events
-            ,debounceTime(1000)
+            , debounceTime(1000)
             // If previous query is diffent from current
-            ,distinctUntilChanged()
+            , distinctUntilChanged()
             // subscription for response
             ).subscribe(() => {
                 this.updateSearch();
@@ -118,10 +145,9 @@ export class SearchComponent implements OnInit {
         const query = Object.assign(this.queryObj, this.myForm.value);
         this.isSearching = true;
         this.getDataService.getData(query).subscribe((res) => {
-          console.log('res', res);
           this.isSearching = false;
-        //   this.apiResponse = res;
           this.getDataService.emitResults(res);
+          console.log(res);
     }, (err) => {
           this.isSearching = false;
           console.log('error', err);

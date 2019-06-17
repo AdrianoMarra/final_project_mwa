@@ -51,7 +51,6 @@ export class ResultsComponent {
   constructor(private modalService: NgbModal, private getDataService: GetUsersService) {
     this.getDataService.resultsObservable.subscribe(value => {
       this.results = value;
-      console.log(this.results);
     });
 
   }
