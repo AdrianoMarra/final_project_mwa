@@ -6,14 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from '../components/user.component';
 import { RegisterComponent } from '../components/register.component';
 import { LoginComponent } from '../components/login.component';
-import { SpecialtyComponent } from '../components/specialty.component';
+import { JobComponent } from '../components/job.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     RegisterComponent,
     LoginComponent,
-    SpecialtyComponent
+    JobComponent
   ],
   imports: [
     CommonModule ,
@@ -24,7 +24,7 @@ import { SpecialtyComponent } from '../components/specialty.component';
         children: [
           { path: 'register', component: RegisterComponent},
           { path: 'login', component: LoginComponent},
-          { path: 'specialty', component: SpecialtyComponent},
+          { path: 'job', component: JobComponent},
         ]
     }])
   ],

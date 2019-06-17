@@ -15,9 +15,9 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
           <div class="col-md-8">
             <div class="card-body">
             <h4 class="card-title" >{{worker.name.first}} {{worker.name.last}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted"> -- {{worker.specialty[0].name}} --</h6>
+            <h6 class="card-subtitle mb-2 text-muted"> -- {{worker.job.title}} --</h6>
                 <p class="card-text mb-2">
-                  <strong>Specialties:</strong> {{worker.specialty[0].description}}
+                  <strong>Intro:</strong> {{worker.description}}
                 </p>
                 <p class="card-text mb-2">
                 <strong>Cost per hour:</strong> $ {{worker.hour_rate}}
@@ -53,11 +53,11 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
             <table class="table table-user-information">
                 <tbody>
                 <tr>
-                    <td>Specialty:</td>
-                    <td>{{worker.specialty[0].name}}</td>
+                    <td>Job Title:</td>
+                    <td>{{worker.job.title}}</td>
                 </tr>
                 <tr>
-                    <td>Experience level:</td>
+                    <td>Experience Level:</td>
                     <td>{{worker.experience}}</td>
                 </tr>
                 <tr>
@@ -65,7 +65,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
                     <td>$ {{worker.hour_rate}}</td>
                 </tr>
                 <tr>
-                    <td>Phone number:</td>
+                    <td>Phone Number:</td>
                     <td>{{worker.phone_number}}</td>
                 </tr>
                 <tr>
