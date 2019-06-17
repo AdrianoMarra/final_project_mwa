@@ -98,9 +98,9 @@ export class SearchComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.updateSearch();
         // Uncomment this line to enable the search by location
-        this.getMyCoordenates();
-        // this.updateSearch();
+        // this.getMyCoordenates();
         this.onKeyUpEvent();
       }
 
