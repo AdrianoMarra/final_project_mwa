@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { GetUsersService } from '../services/getusers.service';
 
 @Component({
   selector: 'app-results',
@@ -21,24 +22,9 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 </ng-template>
 
 
-<div class="row mx-5 my-4">
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
-    </div>
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
-    </div>
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
-    </div>
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
-    </div>
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
-    </div>
-    <div class="col-md-6">
-        <kanban-card></kanban-card>
+<div class="row mx-5 my-4" *ngIf="results">
+    <div class="col-md-6"  *ngFor="let user of results.results">
+        <kanban-card [worker]=user></kanban-card>
     </div>
 </div>
 
@@ -60,8 +46,15 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ResultsComponent {
   closeResult: string;
+  results: any;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private getDataService: GetUsersService) {
+    this.getDataService.resultsObservable.subscribe(value => {
+      this.results = value;
+      console.log(this.results);
+    });
+
+  }
 
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input} from '@angular/core';
+
+import { Component, Input, OnInit, OnChanges} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GetUsersService } from '../services/getusers.service';
-
 @Component({
   selector: 'kanban-card',
   template: `
@@ -9,13 +9,12 @@ import { GetUsersService } from '../services/getusers.service';
       <div class="row no-gutters">
           <div class="col-md-4  pb-4">
             <img class="avatar rounded-circle" src="./assets/images/avatar_male.png" alt="Bologna">
-            <a href="#" class="btn btn-outline-info more" (click)="open(content)">See profile</a>
+            <button class="btn btn-outline-info more" (click)="open(content)">See profile</button>
           </div>
-          
-          <div class="col-md-8">
-            <div class="card-body"> 
 
-            <h4 class="card-title" >{{firstName}} {{lastName}}</h4>
+          <div class="col-md-8">
+            <div class="card-body">
+            <h4 class="card-title" >{{worker.name.first}} {{worker.name.last}}</h4>
             <h6 class="card-subtitle mb-2 text-muted">{{specialty}}</h6>
                 <p class="card-text mb-2">
                   Specialties: Front-end, Back-end
@@ -29,7 +28,7 @@ import { GetUsersService } from '../services/getusers.service';
             </div>
           </div>
       </div>
-      
+
       <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Profile</h4>
@@ -42,7 +41,7 @@ import { GetUsersService } from '../services/getusers.service';
             <div class="row">
               <div class="col-md-3 text-center">
                   <img class="avatar rounded-circle ml-0" src="./assets/images/avatar_male.png" alt="Bologna">
-                  <h4>{{firstName}} {{lastName}}</h4>
+                  <h4>{{worker.name.first}} {{worker.name.last}}</h4>
               </div>
 
               <div class="col-md-9 pt-5 pr-5">
@@ -101,11 +100,31 @@ styles: [`.avatar {
   `],
   providers: [NgbModalConfig, NgbModal]
 })
+<<<<<<< HEAD
 export class CardComponent implements OnInit {
     @Input() test: String;
     apiResponse: any;
+=======
+export class CardComponent implements OnChanges {
+
+    @Input() firstName: string = 'Joe';
+    @Input() lastName: string = 'Black';
+    @Input() specialty: string = 'Web Developer';
+    @Input() description: string = 'His career has included critical and popular success in his youth, followed by a period of substance abuse and legal difficulties, and a resurgence of commercial success in middle age. ';
+    @Input() experience: string = 'Advanced';
+    @Input() hour_rate: Number = 45;
+    @Input() phone_number: string = '4259198888';
+    @Input() email: string = 'test@gmail.com';
+    @Input() street: string = '5000 119th Ave. SE';
+    @Input() city: string = 'Bellevue';
+    @Input() state: string = 'WA';
+    @Input() zip_code: string = '98006';
+>>>>>>> 8a2819fc57dd4141918a0fabeeaeacbedfc9dbfd
+    
+    @Input() worker: any;
     
     public isCollapsed = false;
+<<<<<<< HEAD
     constructor(config: NgbModalConfig, private modalService: NgbModal,private getDataService: GetUsersService) { 
         config.backdrop = 'static';
         config.keyboard = false;
@@ -113,6 +132,18 @@ export class CardComponent implements OnInit {
     ngOnInit() {
       
     }
+=======
+    constructor(config: NgbModalConfig, private modalService: NgbModal) {
+        config.backdrop = 'static';
+        config.keyboard = false;
+    }
+
+    ngOnChanges(value) {
+      this.worker = value.worker.currentValue;
+      console.log(this.worker);
+    }
+
+>>>>>>> 8a2819fc57dd4141918a0fabeeaeacbedfc9dbfd
     open(content) {
 
     this.modalService.open(content, { size: 'lg' });
