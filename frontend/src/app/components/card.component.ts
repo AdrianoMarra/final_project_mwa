@@ -1,5 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GetUsersService } from '../services/getusers.service';
 
 @Component({
   selector: 'kanban-card',
@@ -13,9 +14,9 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
           
           <div class="col-md-8">
             <div class="card-body"> 
-            <h4 class="card-title" >{{firstName}} {{lastName}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{specialty}}</h6>
-                <p class="card-text">{{description}}
+            <h4 class="card-title" ></h4>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <p class="card-text" >
                 </p>
             </div>
           </div>
@@ -30,33 +31,33 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
         </div>
         <div class="modal-body">
             <div class="col-sm-6 col-md-8">
-                <h4>{{firstName}} {{lastName}}</h4>
+                <h4></h4>
             </div>
             <table class="table table-user-information">
                 <tbody>
                 <tr>
                     <td>Specialty:</td>
-                    <td>{{specialty}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Experience level:</td>
-                    <td>{{experience}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Hour Rate:</td>
-                    <td>{{hour_rate}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Phone number:</td>
-                    <td>{{phone_number}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>{{email}}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Address:</td>
-                    <td>{{street}} {{city}} <br/> {{state}} {{zip_code}}</td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
@@ -82,27 +83,24 @@ styles: [`.avatar {
   `],
   providers: [NgbModalConfig, NgbModal]
 })
-export class CardComponent {
-    @Input() firstName: string = 'Joe';
-    @Input() lastName: string = 'Black';
-    @Input() specialty: string = 'Web Developer';
-    @Input() description: string = 'His career has included critical and popular success in his youth, followed by a period of substance abuse and legal difficulties, and a resurgence of commercial success in middle age. ';
-    @Input() experience: string = 'Advanced';
-    @Input() hour_rate: Number = 45;
-    @Input() phone_number: string = '4259198888';
-    @Input() email: string = 'test@gmail.com';
-    @Input() street: string = '5000 119th Ave. SE';
-    @Input() city: string = 'Bellevue';
-    @Input() state: string = 'WA';
-    @Input() zip_code: string = '98006';
+export class CardComponent implements OnInit {
+    @Input() test: String;
+    apiResponse: any;
     
     public isCollapsed = false;
-    constructor(config: NgbModalConfig, private modalService: NgbModal) { 
+    constructor(config: NgbModalConfig, private modalService: NgbModal,private getDataService: GetUsersService) { 
         config.backdrop = 'static';
         config.keyboard = false;
     }
 
     open(content) {
-    this.modalService.open(content);
-  }
+      this.modalService.open(content);
+    }
+    ngOnInit() {
+      this.getDataService.getData({}).subscribe((resp) => {
+          this.apiResponse = resp;
+      });
+    }
+
+    
 }
