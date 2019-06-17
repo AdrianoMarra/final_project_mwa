@@ -1,7 +1,7 @@
 
 import { Component, Input, OnInit, OnChanges} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GetUsersService } from '../services/getusers.service';
+
 @Component({
   selector: 'kanban-card',
   template: `
