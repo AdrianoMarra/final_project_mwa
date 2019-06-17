@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  geolocationKey: 'AIzaSyDasRyzGehywfuLbiQwY43KygBDHqgWoQ8'
+  geolocationKey: 'AIzaSyDasRyzGehywfuLbiQwY43KygBDHqgWoQ8' 
 };
 
 /*
