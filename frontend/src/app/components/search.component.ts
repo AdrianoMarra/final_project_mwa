@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, EventEmitter } from '@angular/core';
 import { from, fromEvent } from 'rxjs';
 import { filter, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { GetUsersService } from '../services/getusers.service';
@@ -72,13 +72,16 @@ export class SearchComponent implements OnInit {
     private specialtiesText = 'Select the specialty';
     private experienceLevelText = 'Worker level of experience';
     myForm: FormGroup;
-    apiResponse: any;
+    // apiResponse: any;
     isSearching: boolean;
     queryObj = {
                 'specialty': '',
                 'hour_rate_min': '',
                 'hour_rate_max': ''
             };
+
+    @Output() resultsChange = new EventEmitter();
+
 
     constructor(private getDataService: GetUsersService, private fb: FormBuilder, private myElement: ElementRef) {
        this.myForm = fb.group({
@@ -88,13 +91,9 @@ export class SearchComponent implements OnInit {
       });
 
        this.isSearching = false;
-       this.apiResponse = [];
     }
 
     ngOnInit() {
-        this.getDataService.getData({}).subscribe((resp) => {
-            this.apiResponse = resp;
-        });
         this.onKeyUpEvent();
         this.updateSearch();
       }
@@ -121,8 +120,9 @@ export class SearchComponent implements OnInit {
         this.getDataService.getData(query).subscribe((res) => {
           console.log('res', res);
           this.isSearching = false;
-          this.apiResponse = res;
-        }, (err) => {
+        //   this.apiResponse = res;
+          this.getDataService.emitResults(res);
+    }, (err) => {
           this.isSearching = false;
           console.log('error', err);
         });
