@@ -19,7 +19,7 @@ class Users {
 
         req.body._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
         let results = await req.db.collection('users')
-        .insert(req.body);
+        .insertOne(req.body);
 
         return results;
     }
@@ -31,6 +31,17 @@ class Users {
         );
 
         return sequenceDocument.value.sequence_value;
+     }
+
+     async authenticate(req){
+        let results = await req.db.collection('users')
+        .find({email:req.body.email,password:req.body.password})
+        .toArray();
+        if(results.length > 0){
+          results[0].password='';
+          results.userWithOutPassword=results[0];
+        }
+        return results; 
      }
 }
 
