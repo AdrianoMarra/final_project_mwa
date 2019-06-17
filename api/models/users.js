@@ -5,6 +5,9 @@ class Users {
         let min = 0;
         let max = 1000;
         let findQuery = {};
+        let perPage = 10;
+        let page = Math.max(0, req.params.page);
+
 
         if(req.query.name != null) {
             findQuery['name.first'] =  {$regex: '^'+req.query.name};
@@ -29,6 +32,8 @@ class Users {
         let results = await req.db.collection('users')
         .find(findQuery)
         .sort({'name.first': 1, 'name.last': 1})
+        .limit(perPage)
+        .skip(perPage * page)
         .toArray();
 
         return results;
