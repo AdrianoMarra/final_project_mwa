@@ -1,13 +1,15 @@
-import { Component, Output } from '@angular/core';
-import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { GetUsersService } from "../services/getusers.service";
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { from, fromEvent } from 'rxjs';
+import { filter, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { GetUsersService } from '../services/getusers.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+
 
 @Component({
 selector: 'app-search',
 template: `
     <div class="px-5">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" [formGroup]="myForm" #movieSearchInput>
             <div class="form-row">
                 <div class="col-md-5 mb-3">
                     <label for="validationCustomUsername">What are you looking for?</label>
@@ -53,14 +55,14 @@ template: `
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="validationCustom05">Worker name</label>
-                    <input type="text" class="form-control" id="validationCustom05" placeholder="Name">
+                    <input type="text" class="form-control" placeholder="Name" [formControl]="myForm.get('name')">
                 </div>
             </div>
         </form>
     <div>
-        `,
+`,
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
     private specialtiesOptions = [ 'Frontend developer', 'Backend developer', 'Tutor'];
     private priceOptions = ['10.00', '15.00', '20.00', '50.00', '60.00'];
     private availabilityOptions = ['Weekends', 'Week Days'];
@@ -69,9 +71,48 @@ export class SearchComponent {
     private maxPriceText = 'Max price per hour';
     private specialtiesText = 'Select the specialty';
     private availabilityText = 'Select the worker availability';
+    myForm: FormGroup;
+    apiResponse: any;
+    isSearching: boolean;
 
-    constructor(private getDataService: GetUsersService) {
-       let results$ = getDataService.getData();
+    constructor(private getDataService: GetUsersService, private fb: FormBuilder, private myElement: ElementRef) {
+       this.myForm = fb.group({
+        'name': ['']
+      });
+
+       this.isSearching = false;
+       this.apiResponse = [];
+    }
+
+    ngOnInit() {
+        this.getDataService.getData({}).subscribe((resp) => {
+            this.apiResponse = resp;
+        });
+        this.updateSearch();
+      }
+
+    updateSearch() {
+        fromEvent(this.myElement.nativeElement, 'keyup').pipe(
+            // get value
+            map((event: any) => {
+              return event.target.value;
+            })
+            // Time in milliseconds between key events
+            ,debounceTime(1000)
+            // If previous query is diffent from current
+            ,distinctUntilChanged()
+            // subscription for response
+            ).subscribe((text: string) => {
+              this.isSearching = true;
+              this.getDataService.getData(this.myForm.value).subscribe((res) => {
+                console.log('res', res);
+                this.isSearching = false;
+                this.apiResponse = res;
+              }, (err) => {
+                this.isSearching = false;
+                console.log('error', err);
+              });
+            });
     }
 
     calcMaxPriceOptions(minPrice) {

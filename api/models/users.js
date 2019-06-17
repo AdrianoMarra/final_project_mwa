@@ -5,6 +5,13 @@ class Users {
         let min = 0;
         let max = 1000;
         let findQuery = {};
+
+        if(req.query.name != null) {
+            findQuery['name.first'] =  {$regex: '^'+req.query.name};
+        } 
+
+        console.log(findQuery);
+
         if(req.query.specialty != null) {
             findQuery['specialty.name'] = {$text: {$search : req.query.specialty}};
         } 
@@ -18,8 +25,6 @@ class Users {
             min = req.query.hour_rate_min;
         }
         findQuery['hour_rate'] = {$gte: min, $lte: max};
-
-        console.log('query: ' + findQuery.hour_rate);
 
         let results = await req.db.collection('users')
         .find(findQuery)
