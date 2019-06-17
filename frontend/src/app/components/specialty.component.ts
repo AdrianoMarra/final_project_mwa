@@ -15,7 +15,7 @@ import { FormGroup } from '@angular/forms';
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description"/>
+        <textarea rows="4" cols="50" class="form-control" id="description"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary" >Add</button>
