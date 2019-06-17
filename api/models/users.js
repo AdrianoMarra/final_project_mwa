@@ -10,8 +10,6 @@ class Users {
             findQuery['name.first'] =  {$regex: '^'+req.query.name};
         } 
 
-        console.log(findQuery);
-
         if(req.query.specialty != null) {
             findQuery['specialty.name'] = {$text: {$search : req.query.specialty}};
         } 
