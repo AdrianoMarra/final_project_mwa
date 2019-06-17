@@ -7,17 +7,25 @@ import { GetUsersService } from '../services/getusers.service';
   template: `
     <div class="card mb-3">
       <div class="row no-gutters">
-          <div class="col-md-4">
+          <div class="col-md-4  pb-4">
             <img class="avatar rounded-circle" src="./assets/images/avatar_male.png" alt="Bologna">
             <a href="#" class="btn btn-outline-info more" (click)="open(content)">See profile</a>
           </div>
           
           <div class="col-md-8">
             <div class="card-body"> 
-            <h4 class="card-title" ></h4>
-            <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <p class="card-text" >
+
+            <h4 class="card-title" >{{firstName}} {{lastName}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{specialty}}</h6>
+                <p class="card-text mb-2">
+                  Specialties: Front-end, Back-end
                 </p>
+                <p class="card-text mb-2">
+                Cost per hour: $20,00
+              </p>
+              <p class="card-text mb-2">
+              Location: Fairfield - IA, USA
+            </p>
             </div>
           </div>
       </div>
@@ -30,9 +38,19 @@ import { GetUsersService } from '../services/getusers.service';
             </button>
         </div>
         <div class="modal-body">
-            <div class="col-sm-6 col-md-8">
-                <h4></h4>
+
+            <div class="row">
+              <div class="col-md-3 text-center">
+                  <img class="avatar rounded-circle ml-0" src="./assets/images/avatar_male.png" alt="Bologna">
+                  <h4>{{firstName}} {{lastName}}</h4>
+              </div>
+
+              <div class="col-md-9 pt-5 pr-5">
+              <h6 class="card-subtitle mb-2 text-muted"> Worker description </h6>
+                  <span> {{description}}</span>
+              </div>
             </div>
+
             <table class="table table-user-information">
                 <tbody>
                 <tr>
@@ -92,15 +110,11 @@ export class CardComponent implements OnInit {
         config.backdrop = 'static';
         config.keyboard = false;
     }
-
-    open(content) {
-      this.modalService.open(content);
-    }
     ngOnInit() {
-      this.getDataService.getData({}).subscribe((resp) => {
-          this.apiResponse = resp;
-      });
+      
     }
+    open(content) {
 
-    
+    this.modalService.open(content, { size: 'lg' });
+  }
 }
