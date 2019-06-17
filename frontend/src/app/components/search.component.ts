@@ -27,8 +27,8 @@ template: `
                     <input type="text" class="form-control" id="location" placeholder="Location" [value]= this.location.results[0].formatted_address disabled>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label for="validationCustom02">Worker specialty</label>
-                    <app-select [btnText]=specialtiesText [dropDownOptions]=specialtiesOptions (valueChange)='updateSpecialty($event)'></app-select>
+                    <label for="validationCustom02">Job Title</label>
+                    <app-select [btnText]=jobTitle [dropDownOptions]=jobOptions (valueChange)='updateJob($event)'></app-select>
                 </div>
             </div>
 
@@ -64,18 +64,18 @@ template: `
 })
 export class SearchComponent implements OnInit {
     @Output() resultsChange = new EventEmitter();
-    private specialtiesOptions = [ 'Frontend developer', 'Backend developer', 'Tutor'];
+    private jobOptions = [ 'Frontend developer', 'Backend developer', 'Tutor'];
     private priceOptions = ['10.00', '15.00', '20.00', '50.00', '60.00'];
     private experienceOptions = ['Junior (< 1 year)', 'Intermediate (> 2 years)', 'Senior (> 5 years)', 'Ninja (> 10 years)'];
     private maxPriceOptions = this.priceOptions;
     private minPriceText = 'Min price';
     private maxPriceText = 'Max price';
-    private specialtiesText = 'Select the specialty';
+    private jobTitle = 'Select the job title';
     private experienceLevelText = 'Worker level of experience';
     myForm: FormGroup;
     isSearching: boolean;
     queryObj = {
-                specialty: '',
+                job: '',
                 hour_rate_min: '',
                 hour_rate_max: '',
                 latitude: '',
@@ -155,8 +155,8 @@ export class SearchComponent implements OnInit {
         });
     }
 
-    updateSpecialty(specialty) {
-        this.queryObj.specialty = specialty;
+    updateJob(job) {
+        this.queryObj.job = job;
         this.updateSearch();
     }
 

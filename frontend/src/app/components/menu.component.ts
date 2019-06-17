@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
         border-radius: 5px;">Become a worker!</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['user', 'specialty']" style="border: white solid 1px;
+        <a class="nav-link" [routerLink]="['user', 'job']" style="border: white solid 1px;
         border-radius: 5px;">Add a job</a>
       </li>
       <li class="nav-item active">

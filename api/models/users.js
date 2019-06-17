@@ -23,8 +23,8 @@ class Users {
             findQuery['name.first'] =  {$regex: req.query.name, $options: 'i'};
         } 
 
-        if(req.query.specialty) {
-            findQuery['specialty.name'] = req.query.specialty;
+        if(req.query.job) {
+            findQuery['job.title'] = req.query.job;
         } 
 
         if(req.query.experience) {

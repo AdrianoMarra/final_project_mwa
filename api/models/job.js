@@ -2,9 +2,9 @@
 class Jobs {
 
     async getAll(req) {
-        let results = await req.db.collection('specialties')
+        let results = await req.db.collection('jobs')
         .find({})
-        .sort({'name': 1})
+        .sort({'title': 1})
         .toArray();
 
         return results;
@@ -13,7 +13,7 @@ class Jobs {
     async create(req) {
 
         req.body._id = await this.getNextSequenceValue(req.db.collection('counter_jobs'));
-        let results = await req.db.collection('specialties')
+        let results = await req.db.collection('jobs')
         .insertOne(req.body);
 
         return results;
@@ -22,7 +22,7 @@ class Jobs {
     async delete(req) {
 
         try{
-            await req.db.collection('specialties')
+            await req.db.collection('jobs')
             .delete({_id: Number(req.params.id) });
         } catch (err ){
             console.log('There is a problem when removing an job. Error: ' + err);
@@ -34,7 +34,7 @@ class Jobs {
     async update(req) {
 
         try {
-            await req.db.collection('specialties')
+            await req.db.collection('jobs')
         .updateOne({_id: Number(req.params.id) },
                    {$set: req.body});
         } catch (err) {
