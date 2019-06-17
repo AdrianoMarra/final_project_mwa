@@ -6,10 +6,10 @@ import { FormGroup } from '@angular/forms';
   template: `
 
   <div class="container">
-    <h1>Adding a specialty</h1>
+    <h1>Adding a new job</h1>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="specialty">Specialty name:</label>
+        <label for="specialty">Job title:</label>
         <input type="text" class="form-control" id="specialty" required>
       </div>
 

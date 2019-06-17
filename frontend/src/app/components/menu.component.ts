@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
       </li>
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['user', 'specialty']" style="border: white solid 1px;
-        border-radius: 5px;">Add a specialty</a>
+        border-radius: 5px;">Add a job</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['user', 'login']">Login</a>

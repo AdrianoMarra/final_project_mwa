@@ -50,7 +50,7 @@ template: `
                 <div class="col-md-3 mb-3">
                     <label for="validationCustom02">Experience Level</label>
                     <div ngbDropdown class="d-inline-block w-100">
-                        <app-select [btnText]=experienceLevelText [dropDownOptions]=experienceOptions></app-select>
+                        <app-select [btnText]=experienceLevelText [dropDownOptions]=experienceOptions (valueChange)='updateExperience($event)'></app-select>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -76,6 +76,7 @@ export class SearchComponent implements OnInit {
     isSearching: boolean;
     queryObj = {
                 'specialty': '',
+                //'experience': 0,
                 'hour_rate_min': '',
                 'hour_rate_max': ''
             };
@@ -148,6 +149,22 @@ export class SearchComponent implements OnInit {
 
     updateMaxPrice(maxPrice) {
         this.queryObj.hour_rate_max = maxPrice;
+        this.updateSearch();
+    }
+
+    updateExperience(experienceText) {
+        // Calc the options for the experience dropdown:
+       /* if ( experienceText == 'Junior (< 1 year)'){
+            this.queryObj.experience = 1
+        } else if (experienceText == 'Intermediate (> 2 years)') {
+            this.queryObj.experience = 2
+        } else if (experienceText == 'Senior (> 5 years)') {
+            this.queryObj.experience = 5
+        } else if (experienceText == 'Ninja (> 10 years)') {
+            this.queryObj.experience = 10
+        } else {
+            this.queryObj.experience = 0
+        }*/
         this.updateSearch();
     }
 }
