@@ -99,9 +99,9 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {
         // Uncomment this line to enable the search by location
-        // this.getMyCoordenates();
+        this.getMyCoordenates();
+        // this.updateSearch();
         this.onKeyUpEvent();
-        this.updateSearch();
       }
 
       getMyCoordenates() {
@@ -114,6 +114,7 @@ export class SearchComponent implements OnInit {
 
             this.getDataService.getAddresses(location)
                 .subscribe((resp) => {
+                    console.log(resp);
                     this.location = resp;
                     this.queryObj.latitude = this.location.results[0].geometry.location.lat;
                     this.queryObj.longitude = this.location.results[0].geometry.location.lng;
