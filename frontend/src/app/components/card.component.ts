@@ -100,11 +100,7 @@ styles: [`.avatar {
   `],
   providers: [NgbModalConfig, NgbModal]
 })
-<<<<<<< HEAD
-export class CardComponent implements OnInit {
-    @Input() test: String;
-    apiResponse: any;
-=======
+
 export class CardComponent implements OnChanges {
 
     @Input() firstName: string = 'Joe';
@@ -119,20 +115,10 @@ export class CardComponent implements OnChanges {
     @Input() city: string = 'Bellevue';
     @Input() state: string = 'WA';
     @Input() zip_code: string = '98006';
->>>>>>> 8a2819fc57dd4141918a0fabeeaeacbedfc9dbfd
-    
     @Input() worker: any;
     
     public isCollapsed = false;
-<<<<<<< HEAD
-    constructor(config: NgbModalConfig, private modalService: NgbModal,private getDataService: GetUsersService) { 
-        config.backdrop = 'static';
-        config.keyboard = false;
-    }
-    ngOnInit() {
-      
-    }
-=======
+
     constructor(config: NgbModalConfig, private modalService: NgbModal) {
         config.backdrop = 'static';
         config.keyboard = false;
@@ -143,7 +129,6 @@ export class CardComponent implements OnChanges {
       console.log(this.worker);
     }
 
->>>>>>> 8a2819fc57dd4141918a0fabeeaeacbedfc9dbfd
     open(content) {
 
     this.modalService.open(content, { size: 'lg' });
