@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home.component';
@@ -20,12 +22,14 @@ import { SelectComponent } from './components/select.component';
     SearchComponent,
     ResultsComponent,
     CardComponent,
-    SelectComponent
+    SelectComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'user', loadChildren: () => import('./modules/users.module').then(m => m.UsersModule)},
