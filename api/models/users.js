@@ -4,6 +4,16 @@ class Users {
     async getAll(req) {
         let findQuery = {};
 
+        if(req.query.latitude && req.query.longitude) {
+
+            findQuery['address.location'] = { 
+                $near: {
+                    $geometry: { "coordinates": [Number(req.query.longitude), Number(req.query.latitude)] },
+                    $maxDistance: 2000
+                  }
+             };
+        }
+
         if(req.query.description) {
             findQuery = {$text: {$search : req.query.description}};
         }
@@ -27,7 +37,7 @@ class Users {
             findQuery['hour_rate'] = {$gte: Number(min), $lte: Number(max)};
         }
 
-        console.log(findQuery);
+        // console.log(findQuery);
 
         let results = await req.db.collection('users')
         .find(findQuery)
