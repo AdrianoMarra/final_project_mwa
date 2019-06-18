@@ -28,6 +28,7 @@ import { JobService } from '../services/job.service';
 })
 export class JobComponent {
   myForm: FormGroup;
+
     constructor(private saveJobService: JobService, private fb: FormBuilder) {
       this.myForm = fb.group({
         'title': '',
@@ -35,13 +36,10 @@ export class JobComponent {
       });
     }
     onSubmit() {
-      console.log("Value==>",this.myForm.value);
       this.saveJobService.saveJob(this.myForm.value).subscribe((res) => {
         console.log("Form Submitted!");
-        console.log(res);
       }, (err) => {
         console.log("Form Failed!"), err;
       });
     }
-
 }

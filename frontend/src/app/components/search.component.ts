@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Output, EventEmitter } from '@angular/co
 import { from, fromEvent } from 'rxjs';
 import { filter, debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { GetUsersService } from '../services/getusers.service';
+import { JobService } from '../services/job.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -63,7 +64,7 @@ template: `
 })
 export class SearchComponent implements OnInit {
     @Output() resultsChange = new EventEmitter();
-    private jobOptions = [ 'Frontend developer', 'Backend developer', 'Tutor'];
+    private jobOptions = [];
     private priceOptions = ['10.00', '15.00', '20.00', '50.00', '60.00'];
     private experienceOptions = ['Junior (< 1 year)', 'Intermediate (> 2 years)', 'Senior (> 5 years)', 'Ninja (> 10 years)'];
     private maxPriceOptions = this.priceOptions;
@@ -82,7 +83,8 @@ export class SearchComponent implements OnInit {
                 page: 1
             };
 
-    constructor(private getDataService: GetUsersService, private fb: FormBuilder, private myElement: ElementRef) {
+    constructor(private getDataService: GetUsersService, private saveJobService: JobService, private fb: FormBuilder, private myElement: ElementRef) {
+
        this.myForm = fb.group({
         description: [''],
         name: ['']
@@ -104,6 +106,7 @@ export class SearchComponent implements OnInit {
         // this.getMyCoordenates();
         this.updateSearch();
         this.onKeyUpEvent();
+        this.loadingJobs();
       }
 
       getMyCoordenates() {
@@ -147,13 +150,15 @@ export class SearchComponent implements OnInit {
 
     updateSearch() {
         const query = Object.assign(this.queryObj, this.myForm.value);
-        this.getDataService.emitLoadding(true);
+       // this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res) => {
           this.getDataService.emitResults(res);
           this.getDataService.emitLoadding(false);
         //   console.log(res);
+         // this.getDataService.emitLoadding(false);
+          console.log(res);
     }, (err) => {
-          this.getDataService.emitLoadding(false);
+          //this.getDataService.emitLoadding(false);
           console.log('error', err);
         });
     }
@@ -196,4 +201,19 @@ export class SearchComponent implements OnInit {
         }*/
         this.updateSearch();
     }
+<<<<<<< HEAD
 }
+=======
+
+    loadingJobs() {
+        this.saveJobService.getJobs().subscribe((res) => {
+         const jobs = res['results']; 
+         for(let i in jobs){
+             this.jobOptions.push(jobs[i].title);
+         }
+        }, (err) => {
+          console.log('error', err);
+        });
+      }
+}
+>>>>>>> c59e55df38608a583ca03f650e67a3033353dcd2
