@@ -10,7 +10,7 @@ export class GetUsersService {
 
   public resultsObservable = new Subject();
   public loaddingObservable = new Subject();
-
+  public pagingObservable = new Subject();
 
   constructor(public http: HttpClient) {}
 
@@ -33,5 +33,9 @@ export class GetUsersService {
 
   emitLoadding(val) {
     this.loaddingObservable.next(val);
+  }
+
+  emitPage(val) {
+    this.pagingObservable.next(val);
   }
 }

@@ -141,7 +141,6 @@ export class CardComponent implements OnChanges {
 
     ngOnChanges(value) {
       this.worker = value.worker.currentValue;
-      console.log(this.worker);
     }
 
     open(content) {
