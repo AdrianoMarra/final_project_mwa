@@ -104,13 +104,8 @@ class Users {
 
      async authenticate(req){
         let results = await req.db.collection('users')
-        .find({email:req.body.email,password:req.body.password})
-        .toArray();
-        if(results.length > 0){
-          results[0].password='';
-          results.userWithOutPassword=results[0];
-        }
-        return {}; 
+        .findOne(req.body);
+        return results;
      }
 }
 
