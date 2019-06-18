@@ -23,7 +23,7 @@ import { SelectComponent } from './components/select.component';
     SearchComponent,
     ResultsComponent,
     CardComponent,
-    SelectComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,

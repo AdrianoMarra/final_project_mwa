@@ -79,19 +79,26 @@ export class SearchComponent implements OnInit {
                 hour_rate_min: '',
                 hour_rate_max: '',
                 latitude: '',
-                longitude: ''
+                longitude: '',
+                page: 1
             };
 
     constructor(private getDataService: GetUsersService, private saveJobService: JobService, private fb: FormBuilder, private myElement: ElementRef) {
 
        this.myForm = fb.group({
-        'description': [''],
-        'name': ['']
+        description: [''],
+        name: ['']
       });
 
        this.location = { results: [
             { formatted_address: 'Finding your location...' }
         ] };
+
+       this.getDataService.pagingObservable.subscribe((pageNumber: number) => {
+            console.log(pageNumber);
+            this.queryObj.page = pageNumber;
+            this.updateSearch();
+        });
     }
 
     ngOnInit() {
@@ -146,8 +153,9 @@ export class SearchComponent implements OnInit {
        // this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res) => {
           this.getDataService.emitResults(res);
-         // this.getDataService.emitLoadding(false);
-          console.log(res);
+
+          this.getDataService.emitLoadding(false);
+        //   console.log(res);
     }, (err) => {
           //this.getDataService.emitLoadding(false);
           console.log('error', err);
@@ -192,7 +200,6 @@ export class SearchComponent implements OnInit {
         }*/
         this.updateSearch();
     }
-
     loadingJobs() {
         this.saveJobService.getJobs().subscribe((res) => {
          const jobs = res['results']; 
@@ -203,4 +210,5 @@ export class SearchComponent implements OnInit {
           console.log('error', err);
         });
       }
+
 }

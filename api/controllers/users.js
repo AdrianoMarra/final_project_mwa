@@ -6,7 +6,7 @@ class UsersController {
     async findAll(req, res) {
        let response = await Users.getAll(req);
 
-        const resultsPerPage = 4;
+        const resultsPerPage = 6;
         const pageCount = Math.ceil(response.length / resultsPerPage);
         let page = parseInt(req.query.page);
         if (!page) { page = 1;}
@@ -18,6 +18,7 @@ class UsersController {
           "total_pages": pageCount,
           "next": (page < pageCount) ? page + 1: null,
           "prev": (page > 1)? page - 1: null,
+          "total_elements": response.length,
           "results": response.slice(page * resultsPerPage - resultsPerPage, page * resultsPerPage)
         });
     }
@@ -29,7 +30,18 @@ class UsersController {
 
     async createNew(req, res) {
         let response = await Users.create(req);
-        res.json(response);
+        if (response._id){
+            let generatedToken = jwtSupport.generateUserToken(response);
+            console.log(response);
+            res.status(200).send({
+                JWT: generatedToken
+             });    
+        }else{
+            res.status(process.env.ERROR_USER_NOT_FOUND).send({
+                message: 'Sign up Failed, Please retry later',
+                token:'N/A'
+            });
+        } 
     }
 
     async deleteUser(req, res) {
