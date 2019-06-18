@@ -15,7 +15,18 @@ class UsersController {
 
     async createNew(req, res) {
         let response = await Users.create(req);
-        res.json(response);
+        if (response._id){
+            let generatedToken = jwtSupport.generateUserToken(response);
+            console.log(response);
+            res.status(200).send({
+                JWT: generatedToken
+             });    
+        }else{
+            res.status(process.env.ERROR_USER_NOT_FOUND).send({
+                message: 'Sign up Failed, Please retry later',
+                token:'N/A'
+            });
+        } 
     }
     
     async authenticate(req, res) {

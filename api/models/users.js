@@ -20,6 +20,12 @@ class Users {
         req.body._id = await this.getNextSequenceValue(req.db.collection('counter_users'));
         let results = await req.db.collection('users')
         .insertOne(req.body);
+        
+        if(results.insertedCount===1){
+          //reading the inserted Worker along with the DB id
+          return results.ops[0];
+        }
+
 
         return results;
     }
@@ -41,7 +47,7 @@ class Users {
           results[0].password='';
           results.userWithOutPassword=results[0];
         }
-        return results; 
+        return {}; 
      }
 }
 

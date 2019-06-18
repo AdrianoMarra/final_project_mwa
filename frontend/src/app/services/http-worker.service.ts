@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpWorkerService {
-
+  
   baseAPIURL: string;
   currentuser: any;
   token: string;
   myheader: any;
-
+  loggedIn:boolean; 
   constructor(public http: HttpClient) {
     this.baseAPIURL = environment.API_URL;
   }
