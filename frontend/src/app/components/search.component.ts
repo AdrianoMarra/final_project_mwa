@@ -201,19 +201,15 @@ export class SearchComponent implements OnInit {
         }*/
         this.updateSearch();
     }
-<<<<<<< HEAD
-}
-=======
 
     loadingJobs() {
         this.saveJobService.getJobs().subscribe((res) => {
-         const jobs = res['results']; 
-         for(let i in jobs){
-             this.jobOptions.push(jobs[i].title);
-         }
+            const jobs = res['results'];
+            for (const i in jobs) {
+                this.jobOptions.push(jobs[i].title);
+            }
         }, (err) => {
           console.log('error', err);
         });
       }
 }
->>>>>>> c59e55df38608a583ca03f650e67a3033353dcd2
