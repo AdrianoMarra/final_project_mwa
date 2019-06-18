@@ -1,4 +1,3 @@
-
 import { Component, Input, OnInit, OnChanges} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,16 +14,16 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
           <div class="col-md-8">
             <div class="card-body">
             <h4 class="card-title" >{{worker.name.first}} {{worker.name.last}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted"> -- {{worker.job.title}} --</h6>
-                <p class="card-text mb-2">
-                  <strong>Intro:</strong> {{worker.description}}
-                </p>
-                <p class="card-text mb-2">
-                <strong>Cost per hour:</strong> $ {{worker.hour_rate}}
+            <h6 class="card-subtitle mb-2 text-muted ml-2"> {{worker.job.title}} </h6>
+              <p class="card-text mb-2 ml-2">
+                <strong>Cost per hour:</strong> $ {{worker.hour_rate}}.00
               </p>
-              <p class="card-text mb-2">
-              <strong>Location:</strong> {{worker.address.city}} - {{worker.address.state}}, USA
-            </p>
+              <p class="card-text mb-2 ml-2">
+                <strong>Location:</strong> {{worker.address.city}} - {{worker.address.state}}, USA
+              </p>
+              <p class="card-text mb-2 ml-2">
+                <strong>Experience:</strong> {{ worker.experience }} years
+              </p>
             </div>
           </div>
       </div>
@@ -41,12 +40,12 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
             <div class="row">
               <div class="col-md-3 text-center">
                   <img class="avatar rounded-circle ml-0" src="./assets/images/avatar_male.png" alt="Bologna">
-                  <h4 class="card-title">{{worker.name.first}} {{worker.name.last}}</h4>
               </div>
 
-              <div class="col-md-9 pt-5 pr-5">
-              <h5 class="card-subtitle mb-2 text-muted"> Worker description </h5>
-                  <span> {{worker.description}}</span>
+              <div class="col-md-9 pt-4 pr-5 pl-0">
+                <h4 class="card-title mb-3">{{worker.name.first}} {{worker.name.last}}</h4>
+                <h5 class="card-subtitle mb-2 text-muted pl-2"> Worker description </h5>
+                <p class="ml-2"> {{worker.description}}</p>
               </div>
             </div>
 
@@ -58,7 +57,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
                 </tr>
                 <tr>
                     <td>Experience Level:</td>
-                    <td>{{worker.experience}}</td>
+                    <td> {{worker.experience}} years</td>
                 </tr>
                 <tr>
                     <td>Hour Rate:</td>
@@ -86,7 +85,15 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
   </div>
 `,
-styles: [`.avatar {
+styles: [`
+  h4, .text-muted {
+    font-weight: 300;
+  }
+  h6 {
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .avatar {
     border: 0.3rem solid rgba(#fff, 0.3);
     margin-bottom: 1rem;
     max-width: 9rem;
