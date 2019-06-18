@@ -21,6 +21,10 @@ router.post('/authenticate', (req, res) => UsersController.authenticate(req, res
 router.patch('/',(req,res) => jwtSupport.verifyToken(req,res) ,(req, res) => UsersController.updateExistingUserProfile(req, res));
 
 
+/* is email was taken */
+router.post('/isMailTaken', (req, res) => UsersController.isMailTaken(req, res));
+
+
 
 
 module.exports = router;

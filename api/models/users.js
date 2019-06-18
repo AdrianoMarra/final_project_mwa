@@ -112,6 +112,24 @@ class Users {
         }
         return {}; 
      }
+
+
+     async isMailTaken(req,res){
+         console.log('am here to validate');
+         let results=await req.db.collection('users')
+         .findOne({email: req.body.email})
+         .then(
+            (customer) => {
+            if (!customer)
+                 {return res.json({"emailNotTaken": true})}
+            else 
+                 return res.json({"emailNotTaken": false})})
+          .catch(
+              error => 
+                    {return res.json({"emailNotTaken": false})}
+              );
+       return results;       
+    }
 }
 
 module.exports  = new Users();
