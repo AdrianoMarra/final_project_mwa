@@ -23,7 +23,7 @@ import { GetUsersService } from '../services/getusers.service';
 
 
 <div class="row mx-5 my-4" *ngIf="results">
-    <div class="col-md-6"  *ngFor="let user of results.results">
+    <div class="col-md-12 col-lg-6"  *ngFor="let user of results.results">
         <kanban-card [worker]=user></kanban-card>
     </div>
 </div>

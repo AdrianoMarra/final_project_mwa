@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-menu',
   template: `
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
   <a class="navbar-brand" [routerLink]="['/']">Find the right worker</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

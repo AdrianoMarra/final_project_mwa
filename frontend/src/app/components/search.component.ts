@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 selector: 'app-search',
 template: `
     <div class="px-5">
-        <form class="needs-validation" [formGroup]="myForm" #movieSearchInput>
+        <form class="needs-validation" [formGroup]="myForm">
             <div class="form-row">
                 <div class="col-md-5 mb-3">
                     <label for="validationCustomUsername">What are you looking for?</label>
@@ -37,11 +37,11 @@ template: `
                     <label for="validationCustom03">Price per hour range</label>
 
                     <div class="w-100">
-                        <div class="col-md-6 float-left pl-0">
+                        <div class="col-md-6 float-left pl-0 pr-1">
                             <app-select [btnText]=minPriceText [dropDownOptions]=priceOptions (valueChange)='updateMinPrice($event)'></app-select>
                         </div>
 
-                        <div class="col-md-6 float-left pl-0">
+                        <div class="col-md-6 float-left pl-1 pr-0">
                             <app-select [btnText]=maxPriceText [dropDownOptions]=maxPriceOptions (valueChange)='updateMaxPrice($event)'></app-select>
                         </div>
                     </div>
@@ -98,9 +98,9 @@ export class SearchComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.updateSearch();
         // Uncomment this line to enable the search by location
         // this.getMyCoordenates();
+        this.updateSearch();
         this.onKeyUpEvent();
       }
 
