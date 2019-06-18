@@ -11,10 +11,11 @@ class Jobs {
     }
 
     async create(req) {
-
-        req.body._id = await this.getNextSequenceValue(req.db.collection('counter_jobs'));
+        console.log()
+        req.body.id = await this.getNextSequenceValue(req.db.collection('counter_jobs'));
+        let myobj = { id: req.body.id, title: req.body.query.title, description: req.body.query.description };
         let results = await req.db.collection('jobs')
-        .insertOne(req.body);
+        .insertOne(myobj);
 
         return results;
     }
@@ -23,7 +24,7 @@ class Jobs {
 
         try{
             await req.db.collection('jobs')
-            .delete({_id: Number(req.params.id) });
+            .delete({id: Number(req.params.id) });
         } catch (err ){
             console.log('There is a problem when removing an job. Error: ' + err);
         }
@@ -35,7 +36,7 @@ class Jobs {
 
         try {
             await req.db.collection('jobs')
-        .updateOne({_id: Number(req.params.id) },
+            .updateOne({id: Number(req.params.id) },
                    {$set: req.body});
         } catch (err) {
             console.log('There is a problem when updating an job. Error: ' + err);

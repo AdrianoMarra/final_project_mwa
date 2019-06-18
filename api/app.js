@@ -8,6 +8,7 @@ var cors = require('cors');
 require('dotenv').config();
 
 var usersRouter = require('./routes/users');
+var jobRouter = require('./routes/job');
 
 // 2) Initialization 
 var app = express();
@@ -41,6 +42,7 @@ app.use(async function (req, resp, next) {
 
 // 5) Routing
 app.use('/users', usersRouter);
+app.use('/job', jobRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
