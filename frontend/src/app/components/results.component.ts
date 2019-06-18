@@ -43,20 +43,9 @@ import { GetUsersService } from '../services/getusers.service';
     </div>
 </div>
 
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+  <div class="pagination justify-content-center" *ngIf="results">
+    <ngb-pagination [pageSize]=6 [rotate]=true [collectionSize]=results.total_elements [(page)]=results.current_page aria-label="Default pagination" (pageChange)="onPageChange($event)"></ngb-pagination>
+  </div>
 `,
 styles: [
   `.loading {
@@ -83,9 +72,16 @@ export class ResultsComponent {
   results: any;
   isLoading: any;
 
+  private onPageChange = (pageNumber) => {
+    // this.pageChange.emit(pageNumber)
+    // console.log(pageNumber);
+    this.getDataService.emitPage(pageNumber);
+  }
+
   constructor(private modalService: NgbModal, private getDataService: GetUsersService, private myElement: ElementRef) {
     this.getDataService.resultsObservable.subscribe(value => {
       this.results = value;
+      console.log(this.results);
     });
 
     this.getDataService.loaddingObservable.subscribe(value => {

@@ -6,7 +6,7 @@ class UsersController {
     async findAll(req, res) {
        let response = await Users.getAll(req);
 
-        const resultsPerPage = 4;
+        const resultsPerPage = 6;
         const pageCount = Math.ceil(response.length / resultsPerPage);
         let page = parseInt(req.query.page);
         if (!page) { page = 1;}
@@ -18,6 +18,7 @@ class UsersController {
           "total_pages": pageCount,
           "next": (page < pageCount) ? page + 1: null,
           "prev": (page > 1)? page - 1: null,
+          "total_elements": response.length,
           "results": response.slice(page * resultsPerPage - resultsPerPage, page * resultsPerPage)
         });
     }
