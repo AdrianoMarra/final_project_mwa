@@ -7,13 +7,15 @@ import { UserComponent } from '../components/user.component';
 import { RegisterComponent } from '../components/register.component';
 import { LoginComponent } from '../components/login.component';
 import { JobComponent } from '../components/job.component';
+import { DashboardComponent } from '../components/dashboard.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     RegisterComponent,
     LoginComponent,
-    JobComponent
+    JobComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule ,
@@ -24,6 +26,7 @@ import { JobComponent } from '../components/job.component';
         children: [
           { path: 'register', component: RegisterComponent},
           { path: 'login', component: LoginComponent},
+          { path: 'dashboard', component: DashboardComponent},
           { path: 'job', component: JobComponent},
         ]
     }])
