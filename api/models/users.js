@@ -28,7 +28,7 @@ class Users {
         } 
 
         if(req.query.experience) {
-            findQuery['experience'] =  {$gte: req.query.experience};
+            findQuery['experience'] =  {$gte: Number(req.query.experience)};
         }
 
         if(req.query.hour_rate_max && req.query.hour_rate_min) {
@@ -37,7 +37,7 @@ class Users {
             findQuery['hour_rate'] = {$gte: Number(min), $lte: Number(max)};
         }
 
-         //console.log(findQuery);
+         console.log('query',findQuery);
 
         let results = await req.db.collection('users')
         .find(findQuery)

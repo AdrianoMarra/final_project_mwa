@@ -80,7 +80,7 @@ export class SearchComponent implements OnInit {
                 hour_rate_max: '',
                 latitude: '',
                 longitude: '',
-                //experience: '',
+                experience: '',
                 page: 1
             };
 
@@ -152,9 +152,13 @@ export class SearchComponent implements OnInit {
     updateSearch() {
         const query = Object.assign(this.queryObj, this.myForm.value);
        // this.getDataService.emitLoadding(true);
-        this.getDataService.getData(query).subscribe((res) => {
+        this.getDataService.getData(query).subscribe((res: any) => {
 
-          this.getDataService.emitResults(res);
+          if (res.total_elements) {
+            this.getDataService.emitResults(res);
+          } else {
+            this.getDataService.emitResults({});   
+          }
 
           this.getDataService.emitLoadding(false);
     }, (err) => {
@@ -164,7 +168,9 @@ export class SearchComponent implements OnInit {
     }
 
     updateJob(job) {
-        this.queryObj.job = job;
+        if(job != 'All'){
+            this.queryObj.job = job;
+        } 
         this.updateSearch();
     }
 
@@ -187,23 +193,22 @@ export class SearchComponent implements OnInit {
     }
 
     updateExperience(experienceText) {
-        // Calc the options for the experience dropdown:
-        console.log('experience', experienceText);
-        //this.queryObj.experience = '5'
-      /* if ( experienceText == 'Junior (< 1 year)'){
-            this.queryObj.experience = '1'
+        if ( experienceText == 'Junior (< 1 year)'){
+            this.queryObj.experience = '1';
         } else if (experienceText == 'Intermediate (> 2 years)') {
-            this.queryObj.experience = '2'
+            this.queryObj.experience = '2';
         } else if (experienceText == 'Senior (> 5 years)') {
-            this.queryObj.experience = '5'
+            this.queryObj.experience = '5';
         } else if (experienceText == 'Ninja (> 10 years)') {
-            this.queryObj.experience = '10'
+            this.queryObj.experience = '10';
         } else {
-            this.queryObj.experience = '0'
-        } */
-       // this.updateSearch();
+            this.queryObj.experience = '0';
+        } 
+       this.updateSearch();
     }
+
     loadingJobs() {
+        this.jobOptions.push('All');
         this.saveJobService.getJobs().subscribe((res) => {
             const jobs = res['results'];
             for (const i in jobs) {
