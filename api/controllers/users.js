@@ -59,6 +59,7 @@ class UsersController {
         if (response) {
             let generatedToken = jwtSupport.generateUserToken(response);
             res.status(200).send({
+                user_data: response,
                 JWT: generatedToken
              });    
         } else {
