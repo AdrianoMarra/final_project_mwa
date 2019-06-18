@@ -1,26 +1,20 @@
-[{
-	"id": 1,
-	"name": "Software Developer",
-	"description": "The job of a software developer depends on the needs of the company, organization or team they are on. Some build and maintain systems that run devices and networks."
-}, {
-	"id": 2,
-	"name": "Carpenter",
-	"description": "Carpenters are skilled artisans who construct, erect, install and renovate structures made of wood and other materials, ranging from kitchen cabinets to building frameworks."
-}, {
-	"id": 3,
-	"name": "Recruiter",
-	"description": "The Recruiter remains up-to-date on the requirements of the various positions in the company, and acts as an advocate for new and established employees."
-}, {
-	"id": 4,
-	"name": "Accounting",
-	"description": "Accounting supplies quantitative information essential to management decision-making and control, as well as a wide variety of tax and consulting services and information on management's effective use of an organization's resources."
-}, {
-	"id": 5,
-	"name": "Lawyer",
-	"description": "They counsel clients, perform legal research, prepare legal documents and represent clients in criminal and civil court proceedings"
-},
-{
-	"id": 6,
-	"name": "Electerical Work",
-	"description": "They counsel clients, perform legal research, prepare legal documents and represent clients in criminal and civil court proceedings"
-}]
+{ "id": 1, "name": "Software Developer", "description": "The job of a software developer depends on the needs of the company, organization or team they are on. Some build and maintain systems that run devices and networks." }
+{ "id": 2, "name": "Carpenter", "description": "Carpenters are skilled artisans who construct, erect, install and renovate structures made of wood and other materials, ranging from kitchen cabinets to building frameworks." } 
+{ "id": 3, "name": "Recruiter", "description": "The Recruiter remains up-to-date on the requirements of the various positions in the company, and acts as an advocate for new and established employees." } 
+{ "id": 4, "name": "Accounting", "description": "Accounting supplies quantitative information essential to management decision-making and control, as well as a wide variety of tax and consulting services and information on management's effective use of an organization's resources." } 
+{ "id": 5, "name": "Lawyer", "description": "They counsel clients, perform legal research, prepare legal documents and represent clients in criminal and civil court proceedings" }
+{"id": 6, "name": "Auditor", "description": "Auditors help businesses increase the accuracy, efficiency, or quality of some aspect of their operations."}
+{"id": 7, "name": "Librarian", "description": "A Librarian is in charge of collecting, organizing, and issuing library resources such as books, films, and audio files."}
+{"id": 8, "name": "Office Assitant", "description": "Office assistants handle organizational and clerical support tasks. This may include organizing files, scheduling appointments, writing copy, proofreading, receiving guests and more."}
+{"id": 9, "name": "Translator", "description": "Translators work with text that need to be translated accurately from one language to another."}
+{"id": 10, "name": "Social Worker", "description": "Social workers help clients handle everyday life problems. They often assist clients who have issues caused by neglect, abuse, domestic violence, mental health and parental substance abuse."}
+{"id": 11, "name": "Game Designer", "description":"Game designers create the rules, characters, settings, stories, and props for new games, and use computer programming languages to write the required code."}
+{"id": 12, "name": "Tutor", "description":"Tutors help students to revise work covered in class and expand on concepts that need further explanations"}
+{"id": 13, "name": "Zoolist", "description": "Zoologists are biological scientists who specialize in the study of animals and their ecosystems."}
+{"id": 14, "name": "Dentist", "description":"Dentists diagnose and treat dental issues and help patients develop better oral hygiene regimens."}
+{"id": 15, "name": "Barista", "description": "Baristas make and serve beverages, such as coffee and tea, and foods, such as sandwiches, muffins, or cookies."}
+{"id": 16, "name": "Web Designer", "description": "Web designers use their creative and software engineering/programing skills to design, build and improve websites."}
+{"id": 17, "name": "Driver", "description": "Drivers undertake various transporting duties and typically work for hotels, restaurants and delivery services."}
+{"id": 18, "name": "Editor", "description":"Editors oversee the content teams of a publication in order to create engaging content for print or digital."}
+{"id": 19, "name": "Hair Stylist", "description": "Hair Stylists are beauty service professionals who specialize in the fashioning and treatment of hair."}
+{"id": 20, "name": "Gardener", "description": "The responsibility of a Gardener is to maintain the beauty of plants, outdoor grounds, and trees in a garden."}
