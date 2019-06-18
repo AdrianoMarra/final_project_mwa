@@ -189,7 +189,7 @@ export class SearchComponent implements OnInit {
     updateExperience(experienceText) {
         // Calc the options for the experience dropdown:
         console.log('experience', experienceText);
-        this.queryObj.experience = '5'
+        //this.queryObj.experience = '5'
       /* if ( experienceText == 'Junior (< 1 year)'){
             this.queryObj.experience = '1'
         } else if (experienceText == 'Intermediate (> 2 years)') {
