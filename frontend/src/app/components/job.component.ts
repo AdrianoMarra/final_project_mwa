@@ -42,6 +42,7 @@ import { JobService } from '../services/job.service';
             <th scope="row">{{job.id}}</th>
             <td>{{job.title}}</td>
             <td>{{job.description}}</td>
+            <button id="remove" (click)="deleteRow(job.id)">DELETE</button>
           </tr>
         </tbody>
       </table>
@@ -79,4 +80,7 @@ export class JobComponent {
         console.log('error', err);
       });
     }
+    deleteRow(id){
+      
+  }
 }
