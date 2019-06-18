@@ -2,6 +2,8 @@ import { CommonModule  } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UsersGuard } from '../guards/user-details.guard';
+
 
 import { UserComponent } from '../components/user.component';
 import { RegisterComponent } from '../components/register.component';
@@ -26,12 +28,12 @@ import { DashboardComponent } from '../components/dashboard.component';
         children: [
           { path: 'register', component: RegisterComponent},
           { path: 'login', component: LoginComponent},
-          { path: 'dashboard', component: DashboardComponent},
-          { path: 'job', component: JobComponent},
+          { path: 'dashboard', component: DashboardComponent, canActivate: [ UsersGuard ]},
+          { path: 'job', component: JobComponent, canActivate: [ UsersGuard ]},
         ]
     }])
   ],
-  providers: [],
+  providers: [UsersGuard],
   bootstrap: [UserComponent]
 })
 export class UsersModule { }

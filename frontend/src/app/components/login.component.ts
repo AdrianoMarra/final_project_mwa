@@ -4,7 +4,7 @@ import { HttpWorkerService } from '../services/http-worker.service';
 import { environment } from 'src/environments/environment.prod';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { UsersSectionService } from '../services/user-section.services';
 
 @Component({
   selector: 'app-root',
@@ -42,13 +42,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./custom_styles/login.css']
 })
 export class LoginComponent implements OnInit,OnDestroy {
-  
+
   errorMessage:string;
   LoginForm: FormGroup;
   subscriber:Subscription;
   errorOccured: boolean = false;
   
-  constructor(private fb: FormBuilder,private httpWorkerService:HttpWorkerService, private router:Router) {
+  constructor(private fb: FormBuilder,private httpWorkerService:HttpWorkerService, private router:Router, private userDataService: UsersSectionService) {
     this.createForm();
   }
   createForm() {
@@ -65,7 +65,8 @@ export class LoginComponent implements OnInit,OnDestroy {
      this.subscriber=this.httpWorkerService.postData(environment.AUTHENTICATE,{'email':email,'password':password})
      .subscribe((data) => {
       if (data.JWT) {
-        this.router.navigate(['/user/dashboard'], { skipLocationChange: true });
+        this.router.navigate(['/user/dashboard']);
+        localStorage.setItem('user_data', JSON.stringify(data.user_data));
         localStorage.setItem('JWT', data.JWT);
       } else {
         this.errorMessage = 'Unknown Problem happened';
