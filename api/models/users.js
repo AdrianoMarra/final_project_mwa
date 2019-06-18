@@ -18,9 +18,9 @@ class Users {
             findQuery = {$text: {$search : req.query.description}};
         }
 
-        // Consider the first and last name here:
         if(req.query.name) {
-            findQuery['name.first'] =  {$regex: req.query.name, $options: 'i'};
+            findQuery['$or'] = [{ 'name.first': { '$regex': req.query.name, '$options': 'i' } }
+                                ,{ 'name.last': { '$regex': req.query.name, '$options': 'i' } }];
         } 
 
         if(req.query.job) {
@@ -28,7 +28,7 @@ class Users {
         } 
 
         if(req.query.experience) {
-            findQuery['experience'] =  {$gte: req.query.experience};
+            findQuery['experience'] =  {$gte: Number(req.query.experience)};
         }
 
         if(req.query.hour_rate_max && req.query.hour_rate_min) {
@@ -37,7 +37,7 @@ class Users {
             findQuery['hour_rate'] = {$gte: Number(min), $lte: Number(max)};
         }
 
-        // console.log(findQuery);
+        // console.log('query',findQuery);
 
         let results = await req.db.collection('users')
         .find(findQuery)
@@ -104,13 +104,8 @@ class Users {
 
      async authenticate(req){
         let results = await req.db.collection('users')
-        .find({email:req.body.email,password:req.body.password})
-        .toArray();
-        if(results.length > 0){
-          results[0].password='';
-          results.userWithOutPassword=results[0];
-        }
-        return {}; 
+        .findOne(req.body);
+        return results;
      }
 
 

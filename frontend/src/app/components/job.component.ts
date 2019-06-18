@@ -7,41 +7,86 @@ import { JobService } from '../services/job.service';
   template: `
 
   <div class="container">
+  <div  *ngIf="show_dialog">
     <h1>Adding a new job</h1>
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="job">Job title:</label>
-        <input type="text" class="form-control" name="title" [formControl]="myForm.get('title')" required>
+        <input type="text" class="form-control" name="title" [formControl]="myForm.get('title')" placeholder = "Job title" required>
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea rows="4" cols="50" class="form-control" name="description" [formControl]="myForm.get('description')"></textarea>
+        <textarea rows="4" cols="50" class="form-control" name="description" [formControl]="myForm.get('description')" placeholder = "Job description"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary" >Add</button>
 
     </form>
-</div>
+    </div>
+    <div  *ngIf="show_response">
+    <p>{{response_txt}}</p>
+    </div>
+    <br/>
+    <h3>Job list</h3>
+    <table class="table table-striped">
+      <thead class="grey lighten-1 black-text">
+        <tr>
+          <th >Id</th>
+          <th >Title</th>
+          <th >Description</th>
+          <th ></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let job of jobs">
+            <th scope="row">{{job.id}}</th>
+            <td>{{job.title}}</td>
+            <td>{{job.description}}</td>
+            <th><button class="btn btn-primary deletebtn" id="remove" (click)="deleteRow(job.id)">DELETE</button></th> 
+          </tr>
+        </tbody>
+      </table>
+  </div>
 
   `,
+  styles: [``]
 })
 export class JobComponent {
   myForm: FormGroup;
+  show_dialog: boolean = true;
+  show_response: boolean = false;
+  response_txt: String;
+  jobs: any;
+
     constructor(private saveJobService: JobService, private fb: FormBuilder) {
       this.myForm = fb.group({
         'title': '',
         'description': ''
       });
+      this.loadingJobs();
     }
     onSubmit() {
-      console.log("Value==>",this.myForm.value);
       this.saveJobService.saveJob(this.myForm.value).subscribe((res) => {
-        console.log("Form Submitted!");
-        console.log(res);
+        this.response_txt = "A job added successfully";
       }, (err) => {
-        console.log("Form Failed!"), err;
+        this.response_txt = "Could not add a job!";
+      });
+      this.show_dialog = false;
+      this.show_response = true;
+    }
+    loadingJobs() {
+      this.saveJobService.getJobs().subscribe((res) => {
+      this.jobs = res['results']; 
+      }, (err) => {
+        console.log('error', err);
       });
     }
-
+    deleteRow(id){
+      this.saveJobService.deleteJob(id).subscribe((res) => {
+      console.log('id', res);
+      }, (err) => {
+        console.log('error', err);
+      });
+  }
 }

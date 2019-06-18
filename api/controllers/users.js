@@ -56,14 +56,15 @@ class UsersController {
     
     async authenticate(req, res) {
         let response = await Users.authenticate(req);
-        if (response.userWithOutPassword){
-            let generatedToken = jwtSupport.generateUserToken(response.userWithOutPassword);
+        if (response) {
+            let generatedToken = jwtSupport.generateUserToken(response);
             res.status(200).send({
+                user_data: response,
                 JWT: generatedToken
              });    
-        }else{
-            res.status(process.env.ERROR_USER_NOT_FOUND).send({
-                message: 'Authentication Failed',
+        } else {
+            res.status(404).send({
+                message: 'Wrong email or password',
                 token:'N/A'
             });
         } 
@@ -78,10 +79,10 @@ class UsersController {
        let response=await Users.isMailTaken(req,res);
        res.json(response);
     }
-     
 
-
-
+    getDashboardData(req, res) {
+        res.json({"dashboard data": "here"});
+    }
 }
 
 module.exports = new UsersController();
