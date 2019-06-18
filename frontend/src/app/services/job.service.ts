@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -20,5 +20,9 @@ export class JobService {
 
    getJobs() {
     return this.http.get('http://localhost:3000/job', {});
+  } 
+  
+  deleteJob(id) {
+    return this.http.delete('http://localhost:3000/job/'+id, {});
   } 
 }

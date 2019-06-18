@@ -18,9 +18,9 @@ class Users {
             findQuery = {$text: {$search : req.query.description}};
         }
 
-        // Consider the first and last name here:
         if(req.query.name) {
-            findQuery['name.first'] =  {$regex: req.query.name, $options: 'i'};
+            findQuery['$or'] = [{ 'name.first': { '$regex': req.query.name, '$options': 'i' } }
+                                ,{ 'name.last': { '$regex': req.query.name, '$options': 'i' } }];
         } 
 
         if(req.query.job) {
@@ -37,7 +37,7 @@ class Users {
             findQuery['hour_rate'] = {$gte: Number(min), $lte: Number(max)};
         }
 
-        // console.log(findQuery);
+         //console.log(findQuery);
 
         let results = await req.db.collection('users')
         .find(findQuery)
