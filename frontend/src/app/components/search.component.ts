@@ -153,10 +153,9 @@ export class SearchComponent implements OnInit {
        // this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res) => {
           this.getDataService.emitResults(res);
+
           this.getDataService.emitLoadding(false);
         //   console.log(res);
-         // this.getDataService.emitLoadding(false);
-          console.log(res);
     }, (err) => {
           //this.getDataService.emitLoadding(false);
           console.log('error', err);
@@ -201,7 +200,6 @@ export class SearchComponent implements OnInit {
         }*/
         this.updateSearch();
     }
-
     loadingJobs() {
         this.saveJobService.getJobs().subscribe((res) => {
             const jobs = res['results'];
@@ -212,4 +210,5 @@ export class SearchComponent implements OnInit {
           console.log('error', err);
         });
       }
+
 }
