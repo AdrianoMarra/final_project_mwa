@@ -18,7 +18,7 @@ export class JobService {
     });
   }
 
-  /* getJobs() {
+   getJobs() {
     return this.http.get('http://localhost:3000/job', {});
-  } */
+  } 
 }
