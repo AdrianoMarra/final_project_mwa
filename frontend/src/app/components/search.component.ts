@@ -202,10 +202,10 @@ export class SearchComponent implements OnInit {
     }
     loadingJobs() {
         this.saveJobService.getJobs().subscribe((res) => {
-         const jobs = res['results']; 
-         for(let i in jobs){
-             this.jobOptions.push(jobs[i].title);
-         }
+            const jobs = res['results'];
+            for (const i in jobs) {
+                this.jobOptions.push(jobs[i].title);
+            }
         }, (err) => {
           console.log('error', err);
         });
