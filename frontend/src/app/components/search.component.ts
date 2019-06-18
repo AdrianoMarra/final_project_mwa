@@ -5,7 +5,6 @@ import { GetUsersService } from '../services/getusers.service';
 import { JobService } from '../services/job.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
-
 @Component({
 selector: 'app-search',
 template: `
@@ -60,7 +59,7 @@ template: `
                 </div>
             </div>
         </form>
-    <div>
+    </div>
 `,
 })
 export class SearchComponent implements OnInit {
@@ -74,7 +73,7 @@ export class SearchComponent implements OnInit {
     private jobTitle = 'Select the job title';
     private experienceLevelText = 'Worker level of experience';
     myForm: FormGroup;
-    isSearching: boolean;
+    location: any;
     queryObj = {
                 job: '',
                 hour_rate_min: '',
@@ -82,16 +81,13 @@ export class SearchComponent implements OnInit {
                 latitude: '',
                 longitude: ''
             };
-
-    location: any;
-
+            
     constructor(private getDataService: GetUsersService, private saveJobService: JobService, private fb: FormBuilder, private myElement: ElementRef) {
+
        this.myForm = fb.group({
         'description': [''],
         'name': ['']
       });
-
-       this.isSearching = false;
 
        this.location = { results: [
             { formatted_address: 'Finding your location...' }
@@ -107,6 +103,8 @@ export class SearchComponent implements OnInit {
       }
 
       getMyCoordenates() {
+        this.getDataService.emitLoadding(true);
+
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
             const location = {
@@ -116,7 +114,6 @@ export class SearchComponent implements OnInit {
 
             this.getDataService.getAddresses(location)
                 .subscribe((resp) => {
-                    console.log(resp);
                     this.location = resp;
                     this.queryObj.latitude = this.location.results[0].geometry.location.lat;
                     this.queryObj.longitude = this.location.results[0].geometry.location.lng;
@@ -146,13 +143,13 @@ export class SearchComponent implements OnInit {
 
     updateSearch() {
         const query = Object.assign(this.queryObj, this.myForm.value);
-        this.isSearching = true;
+        this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res) => {
-          this.isSearching = false;
           this.getDataService.emitResults(res);
+          this.getDataService.emitLoadding(false);
           console.log(res);
     }, (err) => {
-          this.isSearching = false;
+          this.getDataService.emitLoadding(false);
           console.log('error', err);
         });
     }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { GetUsersService } from '../services/getusers.service';
@@ -6,6 +6,21 @@ import { GetUsersService } from '../services/getusers.service';
 @Component({
   selector: 'app-results',
   template: `
+<div class="loading" *ngIf="isLoading">
+  <div class="spinner-border-wrapper">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+      <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
   <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
@@ -42,17 +57,47 @@ import { GetUsersService } from '../services/getusers.service';
     </li>
   </ul>
 </nav>
-`
+`,
+styles: [
+  `.loading {
+    display: block;
+    position: absolute;
+    //background-color: #167bff0a;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    text-align: center;
+  }
+  .spinner-border-wrapper {
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+  } `
+]
 })
 export class ResultsComponent {
   closeResult: string;
   results: any;
+  isLoading: any;
 
-  constructor(private modalService: NgbModal, private getDataService: GetUsersService) {
+  constructor(private modalService: NgbModal, private getDataService: GetUsersService, private myElement: ElementRef) {
     this.getDataService.resultsObservable.subscribe(value => {
       this.results = value;
     });
 
+    this.getDataService.loaddingObservable.subscribe(value => {
+      // This is to fake the loading because the results are too quick
+      // to get the real loading just comment the setTimeout and set
+      // this.isLoading = value;
+
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1500);
+    });
   }
 
   open(content) {
