@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit {
                 latitude: '',
                 longitude: ''
             };
-            
+
     constructor(private getDataService: GetUsersService, private saveJobService: JobService, private fb: FormBuilder, private myElement: ElementRef) {
 
        this.myForm = fb.group({
@@ -143,13 +143,13 @@ export class SearchComponent implements OnInit {
 
     updateSearch() {
         const query = Object.assign(this.queryObj, this.myForm.value);
-        this.getDataService.emitLoadding(true);
+       // this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res) => {
           this.getDataService.emitResults(res);
-          this.getDataService.emitLoadding(false);
+         // this.getDataService.emitLoadding(false);
           console.log(res);
     }, (err) => {
-          this.getDataService.emitLoadding(false);
+          //this.getDataService.emitLoadding(false);
           console.log('error', err);
         });
     }
