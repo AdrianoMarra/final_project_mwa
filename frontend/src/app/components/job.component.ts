@@ -12,12 +12,12 @@ import { JobService } from '../services/job.service';
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="job">Job title:</label>
-        <input type="text" class="form-control" name="title" [formControl]="myForm.get('title')" required>
+        <input type="text" class="form-control" name="title" [formControl]="myForm.get('title')" placeholder = "Job title" required>
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea rows="4" cols="50" class="form-control" name="description" [formControl]="myForm.get('description')"></textarea>
+        <textarea rows="4" cols="50" class="form-control" name="description" [formControl]="myForm.get('description')" placeholder = "Job description"></textarea>
       </div>
 
       <button type="submit" class="btn btn-primary" >Add</button>
@@ -35,6 +35,7 @@ import { JobService } from '../services/job.service';
           <th >Id</th>
           <th >Title</th>
           <th >Description</th>
+          <th ></th>
         </tr>
       </thead>
       <tbody>
@@ -42,13 +43,14 @@ import { JobService } from '../services/job.service';
             <th scope="row">{{job.id}}</th>
             <td>{{job.title}}</td>
             <td>{{job.description}}</td>
-            <button id="remove" (click)="deleteRow(job.id)">DELETE</button>
+            <th><button class="btn btn-primary deletebtn" id="remove" (click)="deleteRow(job.id)">DELETE</button></th> 
           </tr>
         </tbody>
       </table>
   </div>
 
   `,
+  styles: [``]
 })
 export class JobComponent {
   myForm: FormGroup;
@@ -81,6 +83,10 @@ export class JobComponent {
       });
     }
     deleteRow(id){
-      
+      this.saveJobService.deleteJob(id).subscribe((res) => {
+      console.log('id', res);
+      }, (err) => {
+        console.log('error', err);
+      });
   }
 }

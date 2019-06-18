@@ -8,4 +8,9 @@ router.get('/', (req, res) => JobsController.findAll(req, res));
 /* POST new job. */
 router.post('/', (req, res) => JobsController.createNew(req, res));
 
+/* DELETE new job. */
+router.patch('/:id', (req, res) =>{
+    console.log('here duudav');
+    JobsController.deleteJob(req, res)} );
+
 module.exports = router;

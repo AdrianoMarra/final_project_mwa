@@ -21,6 +21,8 @@ export class JobService {
    getJobs() {
     return this.http.get('http://localhost:3000/job', {});
   } 
-  deleteJob() {
+  
+  deleteJob(id) {
+    return this.http.delete('http://localhost:3000/job/'+id, {});
   } 
 }

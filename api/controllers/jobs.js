@@ -14,7 +14,9 @@ class JobsController {
     }
 
     async deleteJob(req, res) {
-      let response = await Jobs.detele(req);
+      console.log('id', req.params.id);
+      let response = await Jobs.delete(req);
+      console.log(response);
       res.json(response);
     }
 
