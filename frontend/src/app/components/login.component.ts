@@ -25,6 +25,11 @@ import { Router } from '@angular/router';
       <input type="submit" value="Worker Log In" class="fadeIn fourth" (click) = "onClickSubmit(email.value, password.value)">
     </form>
 
+    <!-- If not user -->
+    <div class="alertDiv" *ngIf="errorOccured">
+        <p class="alert alert-danger">{{errorMessage}}</p>
+    </div>
+
     <!-- Remind Passowrd -->
     <div id="formFooter">
       <a class="underlineHover" href="#">Forgot Password?</a>
@@ -41,6 +46,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   errorMessage:string;
   LoginForm: FormGroup;
   subscriber:Subscription;
+  errorOccured: boolean = false;
   
   constructor(private fb: FormBuilder,private httpWorkerService:HttpWorkerService, private router:Router) {
     this.createForm();
@@ -63,11 +69,13 @@ export class LoginComponent implements OnInit,OnDestroy {
         localStorage.setItem('JWT', data.JWT);
       } else {
         this.errorMessage = 'Unknown Problem happened';
+        this.errorOccured = true;
        }
      },
      error => {
         console.log(error);
-         this.errorMessage = 'The email address or password is incorrect!';
+        this.errorMessage = 'The email address or password is incorrect!';
+        this.errorOccured = true;
      }
    );
   }
