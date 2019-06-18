@@ -37,7 +37,7 @@ class Users {
             findQuery['hour_rate'] = {$gte: Number(min), $lte: Number(max)};
         }
 
-         console.log('query',findQuery);
+        // console.log('query',findQuery);
 
         let results = await req.db.collection('users')
         .find(findQuery)
