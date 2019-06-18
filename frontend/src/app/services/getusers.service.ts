@@ -9,6 +9,8 @@ import { environment } from '../../environments/environment';
 export class GetUsersService {
 
   public resultsObservable = new Subject();
+  public loaddingObservable = new Subject();
+
 
   constructor(public http: HttpClient) {}
 
@@ -27,5 +29,9 @@ export class GetUsersService {
 
   emitResults(val) {
     this.resultsObservable.next(val);
+  }
+
+  emitLoadding(val) {
+    this.loaddingObservable.next(val);
   }
 }
