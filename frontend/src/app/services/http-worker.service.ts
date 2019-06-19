@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class HttpWorkerService {
   currentuser: any;
   token: string;
   myheader: any;
-  loggedIn:boolean; 
+  loggedIn:boolean;
   constructor(public http: HttpClient) {
     this.baseAPIURL = environment.API_URL;
   }
@@ -33,7 +33,7 @@ export class HttpWorkerService {
     return this.http.patch(this.baseAPIURL + action, body);
   }
 
-  checkEmailNotTaken(email: string,action: string) {
+  checkEmailNotTaken(email: string, action: string) {
     return this.http.post(this.baseAPIURL + action, {
       email
     });
