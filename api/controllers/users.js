@@ -75,11 +75,14 @@ class UsersController {
         res.json(response);
     }
 
+    async isMailTaken(req,res){
+       let response=await Users.isMailTaken(req,res);
+       res.json(response);
+    }
+
     getDashboardData(req, res) {
         res.json({"dashboard data": "here"});
     }
-
-
 }
 
 module.exports = new UsersController();

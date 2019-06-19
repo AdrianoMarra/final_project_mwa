@@ -20,6 +20,9 @@ router.post('/', (req, res) => UsersController.createNew(req, res));
 /* Authenticate user. */
 router.post('/authenticate', (req, res) => UsersController.authenticate(req, res));
 
+/* is email was taken */
+router.post('/isMailTaken', (req, res) => UsersController.isMailTaken(req, res));
+
 /* update an existing user profile. */
 router.patch('/', verifyToken ,(req, res) => UsersController.updateExistingUserProfile(req, res));
 

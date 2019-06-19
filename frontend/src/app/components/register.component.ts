@@ -5,110 +5,87 @@ import { FormGroup, FormBuilder,
    EmailValidator} from '@angular/forms';
 import { HttpWorkerService } from '../services/http-worker.service';
 import { environment } from 'src/environments/environment.prod';
-import { Subscription } from 'rxjs';
+import { Subscription, Subscriber } from 'rxjs';
 import {  MustMatch } from '../helpers/validators';
 
 @Component({
   selector: 'app-root',
-  template: `
-  <form [formGroup]="regGroupForm">
-  <div name="personalInfo">  
-  
-        <div class="form-group1">
-          <label>First Name</label>
-          <input type = "text" name = "firstName"  placeholder = "First Name"  formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"  #firstName>   
-          <div *ngIf="submitted && f.firstName.errors">
-              <div *ngIf="f.firstName.errors.required">First Name is required</div>
-          </div>
-        </div>
- 
-        <div class="form-group1">
-        <label>Last Name</label>
-        <input type = "text" name = "lastName" placeholder = "Last Name" formControlName="lastName" #lastName> 
-        <div *ngIf="submitted && f.lastName.errors">
-            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-        </div>
-        </div>
-      
-         <div class="form-group1">
-         <label>Email</label>
-         <input type = "text"  name = "email"  placeholder = "E-mail" formControlName="email"  #email>
-         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-          </div>
-         </div>    
-       <div class="form-group1">
-            <div class="form-group2">
-                <label>Password</label>
-                <input type = "password"  name = "password" placeholder = "Password" formControlName="password"  #password>
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group2">
-                <label>Confirm Password</label>
-                <input type = "password"  name = "confirmPassword" placeholder = "Confirm Password" formControlName="confirmPassword" #confirmPassword>
-                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                    <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                    <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
-                </div>
-            </div>
-         </div>
-         <div formArrayName="phoneNumbers" style="float: none">
-                <p>Phone Numbers</p>
-                    <div *ngFor="let phoneNumber of regGroupForm.get('phoneNumbers').controls; let i = index">
-                      <div *ngIf="regGroupForm.get('phoneNumbers').controls.length-1 > i; else LastEntryPhone">
-                        <input type="text"  formControlName="{{i}}" disabled>
-                        <button type="button" value="{{i}}" (click)="onDeletePhoneNumber($event)">-</button>
+  template: ` <form [formGroup]="regGroupForm">
+                <div name="personalInfo">  
+                    <div class="form-group col-5">
+                          <label>First Name</label>
+                          <input type="text" placeHolder='First Name' formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" #firstName/>
+                          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                              <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                          </div>
                       </div>
-                      <ng-template #LastEntryPhone>
-                          <input type="text" formControlName="{{i}}"  placeholder = "Personal Phone Number"/>
-                          <button type="button" (click)="onAddPhoneNumber()">+</button>
-                      </ng-template>                        
-                  </div>
-               </div>
-               
-               <input type = "text" name = "photoURL" placeholder = "Photo URL" formControlName="photoURL"  #photoURL> 
-              <br/>     
+                      <div class="form-group col-5">
+                          <label>Last Name</label>
+                          <input type="text" placeHolder='Last Name' formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" #lastName />
+                          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                              <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                          <input type="text" placeHolder='Email' formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  #email/>
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                              <div *ngIf="f.email.errors.usedEmail" >Email is used before</div>
+                              <div *ngIf="f.email.errors.required">Email is required</div>
+                              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                          </div>
+                      </div>
+                    <div class="form-row">
+                      <div class="form-group col">
+                          <label>Password</label>
+                          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" #password/>
+                          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                              <div *ngIf="f.password.errors.required">Password is required</div>
+                              <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                          </div>
+                      </div>
+                      <div class="form-group col">
+                        <label>Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" #confirmPassword />
+                        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                            <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                        </div>
+                      </div>
+                </div>   
+                <div class="form-group col-5">
+                  <label>Phone Number</label>
+                  <input type="text" placeHolder='ex. 641 451 0170' formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" #phoneNumber />
+                      <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                          <div *ngIf="f.phoneNumber.errors.required">Phone Number is required in the right format</div>
+                      </div>
+                 </div>
+                 <div>  
+                      <input type = "text" name = "photoURL" placeholder = "Photo URL" formControlName="photoURL"  #photoURL> 
+                 </div> 
               </div>
-            
               <div name="ProfessionalInfo"> 
-                    <input type = "text"   name = "jobTitle"  placeholder = "Job Title"  formControlName="jobTitle"  #jobTitel> 
-                  <br/>  
-                    <input type = "text" name = "jobDescription"  placeholder = "Job Description"  formControlName="jobDescription"  #jobDescription> 
-                  <br/>  
-
-                    <input type = "text" name = "hourRate"  placeholder = "Hour Rate"  formControlName="hourRate" #hourRate> 
-                  <br/>  
-                    <input type = "text" name = "yearsOfExperience" placeholder = "yearsOfExperience" formControlName="yearsOfExperience"  #yearsOfExperience> 
-                  <br/>  
-                  <input   type = "text" name = "description" placeholder = "Description"  formControlName="description"  #description> 
-                  <br/>  
-            
-               </div>
- 
+                  <input type = "text"  name = "jobTitle"  placeholder = "Job Title"  formControlName="jobTitle"  #jobTitel> 
+                  <input type = "text" name = "hourRate"  placeholder = "Hour Rate"  formControlName="hourRate" #hourRate> 
+                  <input type = "text" name = "yearsOfExperience" placeholder = "yearsOfExperience" formControlName="yearsOfExperience"  #yearsOfExperience> 
+                  <input type = "text" name = "description" placeholder = "Description"  formControlName="description"  #description> 
+              </div>
               <div name="AddressInfo">
                 <input type = "street"  name = "street"  placeholder = "Street" formControlName="street" #street> 
-                <br/>  
                 <input type = "text" name = "state"  placeholder = "State" formControlName="state" #state> 
-                <br/>  
                 <input type = "text" name = "City" placeholder = "City" formControlName="city"  #city> 
-                <br/>  
                 <input type = "text" name = "zipCode" placeholder = "Zip Code" formControlName="zipCode" #zipCode> 
-                <br/>  
-            </div> 
-             <input type = "submit" value = "Register Worker" (click) = "registerWorker()">
-      </form>`,
+              </div> 
+              <input type = "submit" value = "Register Worker" (click) = "registerWorker()">
+       </form>`,
   styles: ['']
 })
-export class RegisterComponent implements OnInit,OnDestroy {
+export class RegisterComponent implements OnInit {
   phoneNumbers:string[]=[];
   errorMessage:string;
   regGroupForm: FormGroup;
   subscriber:Subscription;
-  
+  isvalidEmail:boolean;
   submitted = false;
   
   constructor(private fb: FormBuilder,private httpWorkerService:HttpWorkerService) {
@@ -133,10 +110,12 @@ export class RegisterComponent implements OnInit,OnDestroy {
     'city' : ['', Validators.required],
     'state': ['', Validators.required],
     'zipCode' : ['', Validators.required],
-    'description' : [''],
-    'phoneNumbers' : ['',Validators.required]  }, {
-      validator: MustMatch('password', 'confirmPassword')
+    'description' : ['',Validators.required],
+    'phoneNumber' : ['',Validators.required]  }, {
+     validator: MustMatch('password', 'confirmPassword')
   });
+      
+
 }
 
  
@@ -154,10 +133,15 @@ export class RegisterComponent implements OnInit,OnDestroy {
   }
 
     registerWorker(){
+        this.submitted = true;
+        // stop here if form is invalid
+        if (this.regGroupForm.invalid) {
+            return;
+        }
 
+   
         const email=this.regGroupForm.controls['email'].value;                               
         const password=this.regGroupForm.controls['password'].value;                               
-        const confirmPassword=this.regGroupForm.controls['confirmPassword'].value;                               
         const firstName=this.regGroupForm.controls['firstName'].value;                               
         const lastName=this.regGroupForm.controls['lastName'].value;                               
         const jobDescription=this.regGroupForm.controls['jobDescription'].value;                               
@@ -201,10 +185,13 @@ export class RegisterComponent implements OnInit,OnDestroy {
           "photoURL":photoURL   
         }
       
-
-        console.log(JSON.stringify(validUser)); 
-        this.subscriber=this.httpWorkerService.postData('',validUser)
-        .subscribe((data) => {
+      this.httpWorkerService.checkEmailNotTaken(email,environment.VALIDATE_MAIL).subscribe((data:any) => {
+          if (data.emailNotTaken) {
+           console.log(data.emailNotTaken);
+           this.subscriber=this.httpWorkerService.postData('',validUser)
+          .subscribe((data) => {
+          this.submitted = false;
+          this.regGroupForm.reset();
           console.log(data);
          if (data.JWT) {
              localStorage.setItem('JWT',data.JWT);
@@ -215,16 +202,17 @@ export class RegisterComponent implements OnInit,OnDestroy {
         error => {
            console.log(error);
             this.errorMessage = 'The email address or password is incorrect!';
-        }
+          }
       );
+         } else { 
+       //   this.regGroupForm.controls['email'].errors.push("usedEmail");  
+         console.log("email is not valid ,it's used before");  
+         }
+      
+        },err=>console.log(err),()=>console.log("complete")) ;
       return false;  
     }
   
-    ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-  
-  }
-
 
   get f() { return this.regGroupForm.controls; }
 
