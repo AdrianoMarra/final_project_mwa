@@ -28,6 +28,11 @@ class UsersController {
         res.json(response);
     }
 
+    async countByJobs(req, res) {
+        let response = await Users.getAllByJob(req);
+        res.json(response);
+    }
+
     async createNew(req, res) {
         let response = await Users.create(req);
         if (response._id){

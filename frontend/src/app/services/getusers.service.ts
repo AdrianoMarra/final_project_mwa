@@ -27,6 +27,11 @@ export class GetUsersService {
     });
   }
 
+  countByJob() {
+    return this.http.get('http://localhost:3000/byjob', {}
+    );
+  }
+
   emitResults(val) {
     this.resultsObservable.next(val);
   }

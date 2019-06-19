@@ -4,12 +4,15 @@ import { UsersSectionService } from '../services/user-section.services';
 @Component({
   selector: 'app-user-dashboard',
   template: `
+  <div class="container">
+    <h1 style="margin-bottom: 40px;">Dashboard user</h1>
 
-    <h1>Dashboard user</h1>
+   <!-- <div *ngIf="user">
+        <pre> Welcome, {{ user.email }} </pre>
+    </div> -->
 
-    <div *ngIf="user">
-        <pre> {{ user.email }} </pre>
-    </div>
+    <chart-component></chart-component>
+  </div>
 
 
   `,

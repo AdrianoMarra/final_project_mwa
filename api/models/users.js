@@ -47,6 +47,24 @@ class Users {
         return results;
     }
 
+    async getAllByJob(req) {
+
+        let results = await req.db.collection('users').aggregate([
+            {$match: {}}
+          , { $group: {
+                    _id: '$job.title',
+                    points: {$count: '$job.title'}
+                }
+            }
+        ]).toArray();
+       // .find({})
+       // .sort({'name.first': 1, 'name.last': 1})
+       // .toArray();
+
+        return results;
+    }
+
+
     async get(req) {
         let results = await req.db.collection('users')
         .findOne({_id: Number(req.params.id) });
