@@ -5,17 +5,18 @@ import { UsersSectionService } from '../services/user-section.services';
   selector: 'app-user-dashboard',
   template: `
   <div class="container">
-    <h1 style="margin-bottom: 40px;">Dashboard user</h1>
+  <h3 class="mx-5 mt-4 mb-3"> Dashboard </h3>
 
-   <!-- <div *ngIf="user">
-        <pre> Welcome, {{ user.email }} </pre>
-    </div> -->
+   <div *ngIf="user">
+        <h5 class="mx-5 mt-4"> {{ user.name.first }} {{ user.name.last }}! </h5>
+    </div>
 
     <chart-component></chart-component>
   </div>
 
 
   `,
+  styles: ['h3, h5 { font-weight: 300; }']
 })
 export class DashboardComponent {
 

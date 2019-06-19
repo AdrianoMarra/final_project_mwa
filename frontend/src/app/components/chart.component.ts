@@ -18,29 +18,27 @@ export class ChartComponent implements OnInit {
 
     ngOnInit() {
         this.getDataService.countByJob().subscribe((res: any) => {
-            console.log('hey',res);
             let chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
                 exportEnabled: true,
                 title: {
-                    text: "Workers by jobs"
+                    text: "Profile Views"
                 },
                 data: [{
                     type: "column",
                     dataPoints: [
-                        { y: 2, label: "Backend developer" },
-                        { y: 3, label: "Barista" },
-                        { y: 5, label: "Dentist" },
-                        { y: 1, label: "Gardener" },
-                        { y: 4, label: "Lawyer" },
-                        { y: 1, label: "Web designer" }
+                        { y: 2, label: "Wed, 13 Jun 2019" },
+                        { y: 3, label: "Wed, 14 Jun 2019" },
+                        { y: 5, label: "Wed, 15 Jun 2019" },
+                        { y: 6, label: "Wed, 16 Jun 2019" },
+                        { y: 4, label: "Wed, 17 Jun 2019" },
+                        { y: 3, label: "Wed, 18 Jun 2019" },
+                        { y: 1, label: "Wed, 19 Jun 2019" }
                     ]
                 }]
             });
             chart.render();
-   
       }, (err) => {
-            //this.getDataService.emitLoadding(false);
             console.log('error', err);
           });
 
