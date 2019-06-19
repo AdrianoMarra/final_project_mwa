@@ -35,7 +35,7 @@ import { JobService } from '../services/job.service';
           <th >Id</th>
           <th >Title</th>
           <th >Description</th>
-          <th ></th>
+         <!-- <th ></th> -->
         </tr>
       </thead>
       <tbody>
@@ -43,7 +43,7 @@ import { JobService } from '../services/job.service';
             <th scope="row">{{job.id}}</th>
             <td>{{job.title}}</td>
             <td>{{job.description}}</td>
-            <th><button class="btn btn-primary deletebtn" id="remove" (click)="deleteRow(job.id)">DELETE</button></th> 
+           <!-- <th><button class="btn btn-primary deletebtn" id="remove" (click)="deleteRow(job.id)">DELETE</button></th>  -->
           </tr>
         </tbody>
       </table>

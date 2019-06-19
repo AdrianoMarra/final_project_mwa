@@ -26,5 +26,7 @@ router.post('/isMailTaken', (req, res) => UsersController.isMailTaken(req, res))
 /* update an existing user profile. */
 router.patch('/', verifyToken ,(req, res) => UsersController.updateExistingUserProfile(req, res));
 
+/* GET one user. */
+router.get('/byjob', (req, res) => UsersController.countByJobs(req, res));
 
 module.exports = router;

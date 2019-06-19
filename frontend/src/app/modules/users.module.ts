@@ -10,6 +10,8 @@ import { RegisterComponent } from '../components/register.component';
 import { LoginComponent } from '../components/login.component';
 import { JobComponent } from '../components/job.component';
 import { DashboardComponent } from '../components/dashboard.component';
+import { ChartComponent } from '../components/chart.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { DashboardComponent } from '../components/dashboard.component';
     RegisterComponent,
     LoginComponent,
     JobComponent,
-    DashboardComponent
+    DashboardComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule ,
