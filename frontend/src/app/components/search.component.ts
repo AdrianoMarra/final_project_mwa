@@ -11,7 +11,7 @@ template: `
     <div class="px-5">
         <form class="needs-validation" [formGroup]="myForm">
             <div class="form-row">
-                <div class="col-md-5 mb-3">
+                <div class="col-md-4 mb-3">
                     <label for="validationCustomUsername">What are you looking for?</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -23,8 +23,12 @@ template: `
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="location">Location</label>
+                    <label for="location">My location</label>
                     <input type="text" class="form-control" id="location" placeholder="Location" [value]= this.location.results[0].formatted_address disabled>
+                </div>
+                <div class="col-md-1 mb-3">
+                    <label for="checklocation"></label>
+                    <input type="checkbox" class="form-control" id="checklocation" (change)='useLocation($event)'>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="validationCustom02">Job Title</label>
@@ -104,7 +108,6 @@ export class SearchComponent implements OnInit {
 
     ngOnInit() {
         // Uncomment this line to enable the search by location
-        // this.getMyCoordenates();
         this.updateSearch();
         this.onKeyUpEvent();
         this.loadingJobs();
@@ -170,8 +173,20 @@ export class SearchComponent implements OnInit {
     updateJob(job) {
         if(job != 'All'){
             this.queryObj.job = job;
-        } 
+        } else {
+            this.queryObj.job = '';
+        }
         this.updateSearch();
+    }
+
+    useLocation(checked) {
+        if (checked.target.checked){
+            this.getMyCoordenates();
+        } else {
+            this.queryObj.latitude = '';
+            this.queryObj.longitude = '';
+            this.updateSearch();
+        }
     }
 
     updateMinPrice(minPrice) {
