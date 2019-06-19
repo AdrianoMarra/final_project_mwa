@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpWorkerService } from '../services/http-worker.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UsersSectionService } from '../services/user-section.services';

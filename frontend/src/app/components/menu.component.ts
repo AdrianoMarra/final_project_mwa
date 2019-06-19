@@ -18,9 +18,13 @@ import { Router } from '@angular/router';
         <a class="nav-link" [routerLink]="['user', 'register']" style="border: white solid 1px;
         border-radius: 5px;">Become a worker!</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="userLogged">
         <a class="nav-link" [routerLink]="['user', 'job']" style="border: white solid 1px;
         border-radius: 5px;">Add a job</a>
+      </li>
+
+      <li class="nav-item active" *ngIf="userLogged">
+        <a class="nav-link" [routerLink]="['user', 'dashboard']" style="border: white solid 1px; border-radius: 5px;"> Dashboard </a>
       </li>
 
       <li class="nav-item active" *ngIf="!userLogged">
@@ -33,7 +37,6 @@ import { Router } from '@angular/router';
     </ul>
   </div>
 </nav>
-
   `,
   styles: [`.nav-link {
       margin-left: 10px;
