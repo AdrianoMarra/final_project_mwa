@@ -7,7 +7,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     <div class="card mb-3">
       <div class="row no-gutters">
           <div class="col-md-4  pb-4">
-            <img class="avatar rounded-circle" src="./assets/images/avatar_male.png" alt="Bologna">
+            <img class="avatar rounded-circle" [src]="userImage" alt="Bologna" style="max-height: 128px;">
             <button class="btn btn-outline-info more" (click)="open(content)">See profile</button>
           </div>
 
@@ -39,7 +39,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
             <div class="row">
               <div class="col-md-3 text-center">
-                  <img class="avatar rounded-circle ml-0" src="./assets/images/avatar_male.png" alt="Bologna">
+                  <img class="avatar rounded-circle ml-0" [src]="userImage" alt="Bologna" style="max-height: 128px;">
               </div>
 
               <div class="col-md-9 pt-4 pr-5 pl-0">
@@ -133,6 +133,7 @@ export class CardComponent implements OnChanges {
     @Input() worker: any;
     
     public isCollapsed = false;
+    userImage = './assets/images/avatar_male.png';
 
     constructor(config: NgbModalConfig, private modalService: NgbModal) {
         config.backdrop = 'static';
@@ -141,6 +142,7 @@ export class CardComponent implements OnChanges {
 
     ngOnChanges(value) {
       this.worker = value.worker.currentValue;
+      this.userImage = (this.worker.photo) ? this.worker.photo : './assets/images/user_default_icon.png';
     }
 
     open(content) {

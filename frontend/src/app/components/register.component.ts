@@ -109,14 +109,11 @@ export class RegisterComponent {
 
       this.httpWorkerService.checkEmailTaken(email, environment.VALIDATE_EMAIL)
       .subscribe((data: any) => {
-        console.log(data.emailTaken);
         if (!data.emailTaken) {
-           console.log(validUser);
            this.subscriber = this.httpWorkerService.postData('', validUser)
           .subscribe((data) => {
           this.submitted = false;
           this.regGroupForm.reset();
-          console.log(data);
           if (data.JWT) {
             this.userDataService.emitUserSectionStatus(true);
             this.router.navigate(['/user/dashboard']);
