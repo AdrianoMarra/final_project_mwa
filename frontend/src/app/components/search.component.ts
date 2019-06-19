@@ -154,24 +154,22 @@ export class SearchComponent implements OnInit {
 
     updateSearch() {
         const query = Object.assign(this.queryObj, this.myForm.value);
-       // this.getDataService.emitLoadding(true);
         this.getDataService.getData(query).subscribe((res: any) => {
 
           if (res.total_elements) {
             this.getDataService.emitResults(res);
           } else {
-            this.getDataService.emitResults({});   
+            this.getDataService.emitResults({});
           }
 
           this.getDataService.emitLoadding(false);
     }, (err) => {
-          //this.getDataService.emitLoadding(false);
           console.log('error', err);
         });
     }
 
     updateJob(job) {
-        if(job != 'All'){
+        if (job != 'All') {
             this.queryObj.job = job;
         } else {
             this.queryObj.job = '';

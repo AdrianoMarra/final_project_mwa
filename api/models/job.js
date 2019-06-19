@@ -11,11 +11,12 @@ class Jobs {
     }
 
     async create(req) {
-        console.log()
         req.body.id = await this.getNextSequenceValue(req.db.collection('counter_jobs'));
         let myobj = { id: req.body.id, title: req.body.query.title, description: req.body.query.description };
         let results = await req.db.collection('jobs')
         .insertOne(myobj);
+        
+        console.log(results)
 
         return results;
     }

@@ -33,7 +33,7 @@ export class HttpWorkerService {
     return this.http.patch(this.baseAPIURL + action, body);
   }
 
-  checkEmailNotTaken(email: string, action: string) {
+  checkEmailTaken(email: string, action: string) {
     return this.http.post(this.baseAPIURL + action, {
       email
     });

@@ -34,8 +34,9 @@ class UsersController {
             let generatedToken = jwtSupport.generateUserToken(response);
             console.log(response);
             res.status(200).send({
+                user_data: response,
                 JWT: generatedToken
-             });    
+            });    
         }else{
             res.status(process.env.ERROR_USER_NOT_FOUND).send({
                 message: 'Sign up Failed, Please retry later',
@@ -76,7 +77,7 @@ class UsersController {
     }
 
     async isMailTaken(req,res){
-       let response=await Users.isMailTaken(req,res);
+       let response= await Users.isMailTaken(req,res);
        res.json(response);
     }
 
