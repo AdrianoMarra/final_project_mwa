@@ -11,7 +11,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
     </div>
   `,
   styles: [`div.dropdown-menu.show {
-    max-height: 200px;
+    max-height: 300px;
     overflow-y: scroll;
 }`]
 })
