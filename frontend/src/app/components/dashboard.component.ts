@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersSectionService } from '../services/user-section.services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -12,18 +13,23 @@ import { UsersSectionService } from '../services/user-section.services';
     </div>
 
     <chart-component></chart-component>
-  </div>
-
-
-  `,
+  </div>`,
   styles: ['h3, h5 { font-weight: 300; }']
 })
-export class DashboardComponent {
-
+export class DashboardComponent implements OnInit {
     user: any;
-
-    constructor(private userDataService: UsersSectionService) {
+    constructor(private userDataService: UsersSectionService, private router:Router) {
         this.user = this.userDataService.getUserData();
         this.userDataService.emitUserSectionStatus(true);
+    }
+
+    ngOnInit() {
+      this.userDataService.getDashboardData().subscribe( (data: any) => {
+        if (data.ok === false) {
+          localStorage.clear();
+          this.userDataService.emitUserSectionStatus(false);
+          this.router.navigate(['user', 'login']);
+        }
+      });
     }
 }
